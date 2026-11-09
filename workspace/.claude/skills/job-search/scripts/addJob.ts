@@ -2,6 +2,7 @@ import { out, die, getDb } from './db.ts';
 import { classify } from './catalogMatch.ts';
 import { upsertJob } from './upsertJob.ts';
 import type { RawJob } from './upsertJob.ts';
+import { readInput } from './input.ts';
 
 /**
  * Generic single-job entry point for paths that aren't the Greenhouse/Lever
@@ -9,14 +10,8 @@ import type { RawJob } from './upsertJob.ts';
  * as JSON on stdin, runs it through the same dedup/upsert logic as ingestion.
  */
 
-async function readStdin(): Promise<string> {
-  const chunks: Buffer[] = [];
-  for await (const chunk of process.stdin) chunks.push(chunk as Buffer);
-  return Buffer.concat(chunks).toString('utf8');
-}
-
 async function main() {
-  const raw = await readStdin();
+  const raw = await readInput();
   let job: RawJob;
   try {
     job = JSON.parse(raw);

@@ -199,7 +199,14 @@ if (target !== profileFiles.baselineResume) {
   }
   const NUM = /\$?\d[\d,.]*\s?(?:%|k\b|m\b|b\b|x\b|million\b|billion\b)?/gi;
   const norm = (n: string) => n.trim().replace(/[.,]$/, '').replace(/[,$\s]/g, '').toLowerCase();
-  const dossierNums = new Set([...dossier.matchAll(NUM)].map((m) => norm(m[0])));
+  // Each claim is a "### " block with a "Status:" line. Numbers in blocks the
+  // person has not confirmed, or has ruled out, do not count as verified.
+  const usable = dossier
+    .split(/\n(?=###\s)/)
+    .filter((block) => !/^\s*status:\s*(unverified|do-not-use)\b/im.test(block))
+    .filter((block) => !/^\s*use:\s*interview-only\b/im.test(block))
+    .join('\n');
+  const dossierNums = new Set([...usable.matchAll(NUM)].map((m) => norm(m[0])));
   const nums = [...text.matchAll(NUM)].map((m) => norm(m[0])).filter((n) => !/^(19|20)\d\d$/.test(n) && !/^\d$/.test(n));
   const unverified = [...new Set(nums)].filter((n) => !dossierNums.has(n));
   if (unverified.length) {

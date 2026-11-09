@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Cover letter",
+  "description": "Shape of applications/<slug>/cover-letter.json. The letterhead comes from the baseline resume header, so it cannot drift from the resume. body is an array of paragraphs, which leaves nowhere to put a bullet list.",
+  "type": "object",
+  "required": ["role", "company", "body"],
+  "properties": {
+    "role": { "type": "string", "description": "Exact title from the posting. Used in the Re: line and the PDF filename." },
+    "company": { "type": "string" },
+    "date": { "type": "string", "description": "Defaults to today." },
+    "recipient": {
+      "type": "object",
+      "properties": { "name": { "type": "string" }, "title": { "type": "string" }, "company": { "type": "string" }, "location": { "type": "string" } }
+    },
+    "greeting": { "type": "string", "description": "Defaults to 'Hello,'. Use the hiring manager's name only when the posting gives it." },
+    "body": { "type": "array", "items": { "type": "string" }, "minItems": 3, "maxItems": 6 },
+    "closing": { "type": "string", "description": "Defaults to 'Thank you,'." },
+    "signature": { "type": "string", "description": "Defaults to the name on the resume." }
+  }
+}

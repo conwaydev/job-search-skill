@@ -1,4 +1,5 @@
 import { getDb, out, die } from './db.ts';
+import { readInput } from './input.ts';
 
 interface ScoreInput {
   jobId: number;
@@ -14,14 +15,8 @@ interface ScoreInput {
   workModel?: 'remote' | 'hybrid' | 'onsite' | 'unknown';
 }
 
-async function readStdin(): Promise<string> {
-  const chunks: Buffer[] = [];
-  for await (const chunk of process.stdin) chunks.push(chunk as Buffer);
-  return Buffer.concat(chunks).toString('utf8');
-}
-
 async function main() {
-  const raw = await readStdin();
+  const raw = await readInput();
   let input: ScoreInput;
   try {
     input = JSON.parse(raw);

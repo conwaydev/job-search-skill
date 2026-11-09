@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Resume",
+  "description": "Shape of profile/baseline-resume.json and of applications/<slug>/resume.json. A tailored resume adds targetRole and targetCompany. Rendered by scripts/renderDocument.ts as a single-column, text-selectable PDF.",
+  "type": "object",
+  "required": ["header", "summary", "experience"],
+  "properties": {
+    "targetRole": { "type": "string", "description": "Exact title from the posting. Printed under the contact line and used in the PDF filename. Tailored resumes only." },
+    "targetCompany": { "type": "string", "description": "Tailored resumes only." },
+    "header": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "headline": { "type": "string", "description": "Their real current or most recent title. Never the target role." },
+        "location": { "type": "string", "description": "City, ST" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "links": {
+          "type": "array",
+          "items": { "type": "object", "required": ["url"], "properties": { "label": { "type": "string" }, "url": { "type": "string" } } }
+        }
+      }
+    },
+    "summary": { "type": "string", "description": "Two to four sentences in their own voice." },
+    "skills": {
+      "type": "array",
+      "description": "Rendered under the heading 'Skills'. Concrete, searchable terms live here.",
+      "items": {
+        "type": "object",
+        "required": ["category", "items"],
+        "properties": { "category": { "type": "string" }, "items": { "type": "array", "items": { "type": "string" } } }
+      }
+    },
+    "experience": {
+      "type": "array",
+      "description": "Newest first. One entry per employer; each title held there is its own dated role.",
+      "items": {
+        "type": "object",
+        "required": ["company", "roles"],
+        "properties": {
+          "company": { "type": "string" },
+          "location": { "type": "string" },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["title", "dates", "bullets"],
+              "properties": {
+                "title": { "type": "string" },
+                "dates": { "type": "string", "description": "Month YYYY – Month YYYY, or Month YYYY – Present" },
+                "bullets": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["institution"],
+        "properties": {
+          "institution": { "type": "string" },
+          "location": { "type": "string" },
+          "dates": { "type": "string" },
+          "credential": { "type": "string", "description": "Only a credential they actually earned." },
+          "field": { "type": "string" }
+        }
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": { "type": "object", "required": ["name"], "properties": { "name": { "type": "string" }, "issuer": { "type": "string" }, "date": { "type": "string" } } }
+    },
+    "sections": {
+      "type": "array",
+      "description": "Anything else they want on the page: awards, volunteering, languages, publications.",
+      "items": { "type": "object", "required": ["heading", "items"], "properties": { "heading": { "type": "string" }, "items": { "type": "array", "items": { "type": "string" } } } }
+    }
+  }
+}
