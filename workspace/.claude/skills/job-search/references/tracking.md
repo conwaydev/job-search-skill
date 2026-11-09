@@ -8,7 +8,7 @@ Read this for "mark it applied", "I heard back", "I have an interview", "what's 
 3. Notes on an application
 4. Pipeline and possibly-ghosted
 5. Liveness checks
-6. The readout
+6. The tracker
 
 ## 1. Statuses
 
@@ -43,8 +43,8 @@ scripts/updateStatus.ts 42 screening "recruiter call Tue 3pm with Dana (recruite
 
 Each application has a folder, `applications/<company-role>/`. Keep a `notes.md` there with dated sections:
 
-- **Before an interview:** who they will meet (public info only), what the role is really about, three or four stories from their background that fit, questions for them to ask, and the pay band if known.
-- **After an interview,** ask how it went and write it down in their words: who they met, what was asked, what landed, what felt off, and the next step and its date.
+- **Before an interview:** write a prep page and publish it so they can read it on their phone. See [interview-prep.md](interview-prep.md).
+- **After an interview:** write a debrief in their words. [interview-prep.md](interview-prep.md) covers it too.
 - **Offers:** the numbers, the deadline and their questions.
 
 Facts that come up and could be used later go to `profile/verified-metrics.md` once they confirm them.
@@ -85,14 +85,23 @@ To archive: `scripts/updateStatus.ts <id> archived "posting gone, liveness check
 - **Never archive a role they applied to just because the posting closed.** That's normal once they are in the process.
 - Run a full check every couple of weeks, and always before they sit down to apply.
 
-## 6. The readout
+## 6. The tracker
 
-`scripts/renderReadout.ts` writes `readouts/pipeline.html` from the database and opens it. It shows:
-- a funnel of counts by stage
-- recent changes
-- roles that may be ghosted
-- the top live open roles
+`scripts/renderReadout.ts` writes `readouts/pipeline.html` from the database. That page is their Application Tracker. It shows:
+- headline numbers;
+- how far applications get, from found to offer;
+- active applications, with days since the last news, and the quiet ones flagged;
+- recent activity with notes;
+- the best open roles they haven't applied to.
 
-Point them at the file. They can open it any time, offline. Digests (`scripts/renderDigest.ts`) are the dated "what's new" summaries in `readouts/digests/`.
+**Keep the published copy current.** Each time the readout is refreshed:
+1. Read `profile/links.json`.
+2. **If it has a `tracker` link and you have the Artifact tool,** read that artifact first (`action: read` with its URL). Then publish `readouts/pipeline.html` to the same URL. The link they bookmarked keeps working.
+3. **If there's no link yet,** publish it as a new private artifact titled "Application Tracker". Save the URL under `tracker` in `profile/links.json`, keeping any other keys.
+4. **If you don't have the Artifact tool,** tell them it's updated at `readouts/pipeline.html`. `--open` opens it in their browser.
+
+"Show my tracker" means: refresh, publish, and give them the link.
+
+Digests (`scripts/renderDigest.ts`) are the dated "what's new" summaries, in `readouts/digests/`.
 
 **Queries you write yourself** must exclude `archived` and `ignored`, or a dead duplicate will come back as a "new top match".

@@ -24,7 +24,7 @@ import { peopleResearchDir } from './paths.ts';
 
 /**
  * Click through the whole profile, not just the overview.
- * The overview shows only a preview of Activity (eight items for Alex Takacs),
+ * The overview shows only a preview of Activity,
  * and the About section is cut at "more". So this expands "see more", then opens
  * the full Posts and Comments tabs and scrolls each so nothing sits below the fold.
  * Returns labelled text blocks. A thin read is the thing this exists to prevent.
