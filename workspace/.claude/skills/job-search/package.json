@@ -5,7 +5,7 @@
   "description": "Scripts behind the job-search skill. Setup runs `npm ci` here.",
   "type": "module",
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=22.18.0"
   },
   "dependencies": {
     "playwright": "1.64.0"

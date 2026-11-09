@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(node --version)",
+      "Bash(node --no-warnings .claude/skills/job-search/scripts/*)",
+      "Bash(sh .claude/skills/job-search/setup/install-node.sh)",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File .claude/skills/job-search/setup/install-node.ps1)",
+      "Bash(npm --prefix .claude/skills/job-search ci --no-audit --no-fund)",
+      "Bash(npm --prefix .claude/skills/job-search exec playwright install chromium)",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Read(./data/sessions/**)",
+      "Read(./data/browser-profile/**)",
+      "Edit(./data/sessions/**)",
+      "Edit(./data/browser-profile/**)",
+      "WebFetch(domain:indeed.com)",
+      "WebFetch(domain:www.indeed.com)"
+    ]
+  }
+}
