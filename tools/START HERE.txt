@@ -1,0 +1,21 @@
+JOB SEARCH: START HERE
+
+You need the Claude desktop app (claude.ai/download) on a paid plan.
+
+1. Move this JobSearch folder somewhere you'll keep it, like your home folder
+   or Documents. Not the Downloads folder, and not inside a synced folder
+   like iCloud Drive, OneDrive or Dropbox.
+
+2. Open the Claude app and click the Code tab. Choose "Open folder" (or the
+   folder picker) and pick this JobSearch folder. If it asks whether you
+   trust the folder, say yes.
+
+3. Type:  set me up
+
+That's it. Claude checks your computer, installs what it needs inside this
+folder, and walks you through the rest, one question at a time. It takes about
+20 minutes, and you can stop whenever you like. Next time, open the same
+folder and say hi; it picks up where you left off.
+
+Everything stays on your computer, in this folder. Nothing is sent anywhere
+except the searches you ask for. Don't delete this folder: it is your search.
