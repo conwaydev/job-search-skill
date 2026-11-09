@@ -5,12 +5,14 @@ description: >-
   Built In and company career sites (Greenhouse, Lever, Ashby, Workday), scores
   each against their resume, checks postings are still live, tailors a resume
   and cover letter from their own verified facts and voice, tracks every
-  application, and learns from their corrections. Use it for anything about
+  application in an Application Tracker page, writes interview prep, and
+  learns from their corrections. Use it for anything about
   jobs or job hunting: a posting or job link, their resume, a cover letter,
   applications, interviews, recruiters, offers, or "what's still open". Also
   use it for "set me up", "get started", "help me find a job", "find jobs",
   "what's new", "score this job", "tailor my resume", "write a cover letter",
-  "mark it applied", "pipeline", and for a plain "hi" when onboarding is not
+  "mark it applied", "pipeline", "show my tracker", "help me prep for my
+  interview", and for a plain "hi" when onboarding is not
   finished. Use it even when they never say "skill".
 allowed-tools: Bash(node *), Read, Write, Edit, WebFetch, WebSearch, AskUserQuestion
 ---
@@ -121,7 +123,9 @@ Each rule exists because breaking it produced a wrong answer. Do not soften them
 | pastes a job link or description | Add it, find the employer's posting, score it | [discovery.md](references/discovery.md), [scoring.md](references/scoring.md) |
 | "how does this one look", "tell me about #42" | `scripts/query.ts job 42`, then summarize | [scoring.md](references/scoring.md) |
 | "tailor my resume", "write a cover letter", "apply to #42" | Research, then build both from scratch | [tailoring.md](references/tailoring.md), [letters.md](references/letters.md), [writing.md](references/writing.md) |
-| "mark it applied", "I heard back", "I got an interview" | Update the status with a note, refresh the readout | [tracking.md](references/tracking.md) |
+| "mark it applied", "I heard back", "I got an interview" | Update the status with a note, refresh and republish the tracker | [tracking.md](references/tracking.md) |
+| "show my tracker", "how's my search going" | Refresh the tracker and give them its link | [tracking.md](references/tracking.md) |
+| "help me prep", "I have an interview with…", "how did it go" debriefs | Prep notes published as a doc or artifact, then a debrief | [interview-prep.md](references/interview-prep.md) |
 | "what's still open", "pipeline", "who ghosted me" | Snapshot, liveness check, readout | [tracking.md](references/tracking.md) |
 | "that's wrong", "don't do that", "I hate this line" | Fix it, then record the rule | [learning.md](references/learning.md) |
 | "add Acme to my companies" | Find their careers board and add it to `sources.json` | [discovery.md](references/discovery.md) |
@@ -149,8 +153,9 @@ scripts/writeScore.ts --file data/tmp/score.json
 scripts/updateStatus.ts <id> applied "note"
 scripts/statusSnapshot.ts                 # counts and possibly-ghosted roles
 scripts/auditProse.ts <file>              # check a draft before showing it
-scripts/renderDocument.ts <application>   # resume and letter to PDF
-scripts/renderReadout.ts                  # refresh readouts/pipeline.html
+scripts/renderDocument.ts <application>   # resume and letter to PDF (--baseline: preview the baseline)
+scripts/renderReadout.ts [--open]         # refresh the tracker, readouts/pipeline.html
+scripts/renderPrep.ts <application> <md>  # prep notes to a phone-friendly page
 scripts/renderDigest.ts                   # what's new since the last digest
 ```
 
