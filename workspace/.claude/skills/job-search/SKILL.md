@@ -67,6 +67,8 @@ Onboarding does not have to be finished before you help. A baseline resume alone
 | `profile/my-voice.md` | Samples of how they write, plus notes | You, from their samples and corrections |
 | `profile/learned-rules.md` | Dated rules from their corrections | You, every time they correct you |
 | `profile/sources.json` | Company career boards to pull from | You, when they add or drop companies |
+| `profile/links.json` | Links to their published tracker and prep pages | You, when you publish one |
+| `profile/onboarding-state.json` | Which setup steps are done | `scripts/onboardingState.ts` only |
 | `applications/<company-role>/` | Tailored resume and letter for one application, plus the PDFs | You |
 | `readouts/` | `pipeline.html` and dated digests | Scripts |
 | `data/` | `jobs.db`, LinkedIn session, browser profile | Scripts only |
@@ -131,6 +133,9 @@ Background research on how applicant systems and hiring managers actually read r
 
 ```
 scripts/doctor.ts                         # is this computer ready?
+scripts/onboardingState.ts [set <step> <status>]  # setup progress
+scripts/extractDocx.ts <file.docx>        # text of a Word resume
+scripts/seedMetrics.ts                    # resume numbers into verified-metrics.md as unverified
 scripts/query.ts baseline                 # current resume version (its id goes on every score)
 scripts/query.ts pending-score            # jobs waiting for a score
 scripts/query.ts job <id>                 # one job, its scores, history and drafts

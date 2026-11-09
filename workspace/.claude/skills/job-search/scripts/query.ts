@@ -12,7 +12,7 @@ function currentBaseline() {
 switch (cmd) {
   case 'baseline': {
     const row = currentBaseline();
-    if (!row) die({ error: 'no_baseline', message: 'Run syncBaseline.ts first' });
+    if (!row) die({ error: 'no_baseline', hint: 'No baseline resume yet. Do the resume step of onboarding (references/onboarding.md), which ends with syncBaseline.ts.' });
     out(row);
     break;
   }
