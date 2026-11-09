@@ -49,7 +49,17 @@ When they mention something real about their work, offer to add it to `verified-
 
 ## Looking back
 
-Every tenth application, or when they ask "how's my search going", look at the catalog and offer a short readout:
+Every tenth application, or when they ask "how's my search going", look at the catalog and offer a short readout.
+
+`scripts/searchReview.ts` gives you the numbers:
+- response rates by source, work model and score band;
+- high-scoring roles they passed on;
+- which sources and queries find good roles;
+- the IDs of the top scorers. Read those postings with `query.ts job <id>` for the themes.
+
+`--due` says whether ten applications have gone by since the last review. After you've gone through it with them, run `--mark`.
+
+Cover these:
 
 - **What the best-scoring postings ask for.** List the themes that come up again and again in roles scored 80 and up. Offer to add any that are missing to `search-profile.json` (`titleFilter.domainKeywords`, `searchQueries`).
 - **What's getting responses.** Compare roles that reached `screening` or later with roles that didn't: source, title, industry, remote or not, how far over their floor the pay was. With a small count, say it's a direction, not a result.

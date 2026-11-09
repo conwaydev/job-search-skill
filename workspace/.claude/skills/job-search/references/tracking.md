@@ -36,7 +36,7 @@ scripts/updateStatus.ts 42 screening "recruiter call Tue 3pm with Dana (recruite
 
 - History is append-only, so the note is the record. Make it useful: the date of the news, who it came from, and what is next.
 - **Only change a status on real news** from them or from the company. If they forward a message, summarize it in the note.
-- **When they say they applied,** also ask which documents they sent if it isn't obvious. That ties the outcome back to the version.
+- **When they say they applied,** also ask which documents they sent if it isn't obvious. That ties the outcome back to the version. Then run `scripts/searchReview.ts --due`. If it says due, offer the look-back in [learning.md](learning.md).
 - **After every status change, run `scripts/renderReadout.ts`** so `readouts/pipeline.html` is current. A status change isn't finished until the readout matches.
 
 ## 3. Notes on an application
