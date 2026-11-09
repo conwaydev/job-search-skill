@@ -1,0 +1,670 @@
+{
+  "_note": "Verified live by tools/verifyBoards.mjs. Onboarding offers these by industry; picked ones go into profile/sources.json (greenhouse/lever/ashby as slugs, workday as {company, url}). openings is the board size on the day it was checked.",
+  "verifiedOn": "2026-11-09",
+  "industries": {
+    "Software & internet": [
+      {
+        "company": "Airbnb",
+        "ats": "greenhouse",
+        "slug": "airbnb",
+        "openings": 203
+      },
+      {
+        "company": "Stripe",
+        "ats": "greenhouse",
+        "slug": "stripe",
+        "openings": 771
+      },
+      {
+        "company": "Databricks",
+        "ats": "greenhouse",
+        "slug": "databricks",
+        "openings": 918
+      },
+      {
+        "company": "Figma",
+        "ats": "greenhouse",
+        "slug": "figma",
+        "openings": 146
+      },
+      {
+        "company": "Anthropic",
+        "ats": "greenhouse",
+        "slug": "anthropic",
+        "openings": 676
+      },
+      {
+        "company": "Dropbox",
+        "ats": "greenhouse",
+        "slug": "dropbox",
+        "openings": 33
+      },
+      {
+        "company": "Pinterest",
+        "ats": "greenhouse",
+        "slug": "pinterest",
+        "openings": 167
+      },
+      {
+        "company": "Reddit",
+        "ats": "greenhouse",
+        "slug": "reddit",
+        "openings": 155
+      },
+      {
+        "company": "Discord",
+        "ats": "greenhouse",
+        "slug": "discord",
+        "openings": 27
+      },
+      {
+        "company": "Instacart",
+        "ats": "greenhouse",
+        "slug": "instacart",
+        "openings": 88
+      },
+      {
+        "company": "Lyft",
+        "ats": "greenhouse",
+        "slug": "lyft",
+        "openings": 159
+      },
+      {
+        "company": "GitLab",
+        "ats": "greenhouse",
+        "slug": "gitlab",
+        "openings": 252
+      },
+      {
+        "company": "Twilio",
+        "ats": "greenhouse",
+        "slug": "twilio",
+        "openings": 129
+      },
+      {
+        "company": "Okta",
+        "ats": "greenhouse",
+        "slug": "okta",
+        "openings": 376
+      },
+      {
+        "company": "Cloudflare",
+        "ats": "greenhouse",
+        "slug": "cloudflare",
+        "openings": 465
+      },
+      {
+        "company": "Datadog",
+        "ats": "greenhouse",
+        "slug": "datadog",
+        "openings": 401
+      },
+      {
+        "company": "MongoDB",
+        "ats": "greenhouse",
+        "slug": "mongodb",
+        "openings": 377
+      },
+      {
+        "company": "Elastic",
+        "ats": "greenhouse",
+        "slug": "elastic",
+        "openings": 427
+      },
+      {
+        "company": "Squarespace",
+        "ats": "greenhouse",
+        "slug": "squarespace",
+        "openings": 21
+      },
+      {
+        "company": "Duolingo",
+        "ats": "greenhouse",
+        "slug": "duolingo",
+        "openings": 61
+      },
+      {
+        "company": "Asana",
+        "ats": "greenhouse",
+        "slug": "asana",
+        "openings": 109
+      },
+      {
+        "company": "Airtable",
+        "ats": "greenhouse",
+        "slug": "airtable",
+        "openings": 6
+      },
+      {
+        "company": "Webflow",
+        "ats": "greenhouse",
+        "slug": "webflow",
+        "openings": 0
+      },
+      {
+        "company": "Grafana Labs",
+        "ats": "greenhouse",
+        "slug": "grafanalabs",
+        "openings": 139
+      },
+      {
+        "company": "Samsara",
+        "ats": "greenhouse",
+        "slug": "samsara",
+        "openings": 316
+      },
+      {
+        "company": "Toast",
+        "ats": "greenhouse",
+        "slug": "toast",
+        "openings": 337
+      },
+      {
+        "company": "Roblox",
+        "ats": "greenhouse",
+        "slug": "roblox",
+        "openings": 269
+      },
+      {
+        "company": "Braze",
+        "ats": "greenhouse",
+        "slug": "braze",
+        "openings": 359
+      },
+      {
+        "company": "Mixpanel",
+        "ats": "greenhouse",
+        "slug": "mixpanel",
+        "openings": 42
+      },
+      {
+        "company": "Calendly",
+        "ats": "greenhouse",
+        "slug": "calendly",
+        "openings": 7
+      },
+      {
+        "company": "Smartsheet",
+        "ats": "greenhouse",
+        "slug": "smartsheet",
+        "openings": 69
+      },
+      {
+        "company": "Intercom",
+        "ats": "greenhouse",
+        "slug": "intercom",
+        "openings": 108
+      },
+      {
+        "company": "Zscaler",
+        "ats": "greenhouse",
+        "slug": "zscaler",
+        "openings": 380
+      },
+      {
+        "company": "Snowflake",
+        "ats": "ashby",
+        "slug": "snowflake",
+        "openings": 369
+      },
+      {
+        "company": "Notion",
+        "ats": "ashby",
+        "slug": "notion",
+        "openings": 153
+      },
+      {
+        "company": "OpenAI",
+        "ats": "ashby",
+        "slug": "openai",
+        "openings": 811
+      },
+      {
+        "company": "Linear",
+        "ats": "ashby",
+        "slug": "linear",
+        "openings": 32
+      },
+      {
+        "company": "Vercel",
+        "ats": "ashby",
+        "slug": "vercel",
+        "openings": 0
+      },
+      {
+        "company": "Replit",
+        "ats": "ashby",
+        "slug": "replit",
+        "openings": 29
+      },
+      {
+        "company": "Zapier",
+        "ats": "ashby",
+        "slug": "zapier",
+        "openings": 10
+      },
+      {
+        "company": "PostHog",
+        "ats": "ashby",
+        "slug": "posthog",
+        "openings": 10
+      },
+      {
+        "company": "Sentry",
+        "ats": "ashby",
+        "slug": "sentry",
+        "openings": 39
+      },
+      {
+        "company": "Deel",
+        "ats": "ashby",
+        "slug": "deel",
+        "openings": 0
+      },
+      {
+        "company": "Palantir",
+        "ats": "lever",
+        "slug": "palantir",
+        "openings": 304
+      },
+      {
+        "company": "Spotify",
+        "ats": "lever",
+        "slug": "spotify",
+        "openings": 85
+      },
+      {
+        "company": "Salesforce",
+        "ats": "workday",
+        "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site",
+        "openings": 1528
+      },
+      {
+        "company": "Adobe",
+        "ats": "workday",
+        "url": "https://adobe.wd5.myworkdayjobs.com/external_experienced",
+        "openings": 275
+      },
+      {
+        "company": "NVIDIA",
+        "ats": "workday",
+        "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite",
+        "openings": 2000
+      },
+      {
+        "company": "Workday",
+        "ats": "workday",
+        "url": "https://workday.wd5.myworkdayjobs.com/Workday",
+        "openings": 367
+      },
+      {
+        "company": "Intel",
+        "ats": "workday",
+        "url": "https://intel.wd1.myworkdayjobs.com/External",
+        "openings": 860
+      },
+      {
+        "company": "HP",
+        "ats": "workday",
+        "url": "https://hp.wd5.myworkdayjobs.com/ExternalCareerSite",
+        "openings": 926
+      }
+    ],
+    "Finance & fintech": [
+      {
+        "company": "Robinhood",
+        "ats": "greenhouse",
+        "slug": "robinhood",
+        "openings": 154
+      },
+      {
+        "company": "Coinbase",
+        "ats": "greenhouse",
+        "slug": "coinbase",
+        "openings": 284
+      },
+      {
+        "company": "Affirm",
+        "ats": "greenhouse",
+        "slug": "affirm",
+        "openings": 221
+      },
+      {
+        "company": "Chime",
+        "ats": "greenhouse",
+        "slug": "chime",
+        "openings": 68
+      },
+      {
+        "company": "Brex",
+        "ats": "greenhouse",
+        "slug": "brex",
+        "openings": 268
+      },
+      {
+        "company": "Gusto",
+        "ats": "greenhouse",
+        "slug": "gusto",
+        "openings": 79
+      },
+      {
+        "company": "SoFi",
+        "ats": "greenhouse",
+        "slug": "sofi",
+        "openings": 48
+      },
+      {
+        "company": "Betterment",
+        "ats": "greenhouse",
+        "slug": "betterment",
+        "openings": 25
+      },
+      {
+        "company": "Ramp",
+        "ats": "ashby",
+        "slug": "ramp",
+        "openings": 176
+      },
+      {
+        "company": "Mercury",
+        "ats": "ashby",
+        "slug": "mercury",
+        "openings": 0
+      },
+      {
+        "company": "Plaid",
+        "ats": "ashby",
+        "slug": "plaid",
+        "openings": 140
+      },
+      {
+        "company": "Capital One",
+        "ats": "workday",
+        "url": "https://capitalone.wd12.myworkdayjobs.com/Capital_One",
+        "openings": 2049
+      },
+      {
+        "company": "Mastercard",
+        "ats": "workday",
+        "url": "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers",
+        "openings": 925
+      },
+      {
+        "company": "Wells Fargo",
+        "ats": "workday",
+        "url": "https://wf.wd1.myworkdayjobs.com/WellsFargoJobs",
+        "openings": 1553
+      },
+      {
+        "company": "Northern Trust",
+        "ats": "workday",
+        "url": "https://ntrs.wd1.myworkdayjobs.com/northerntrust",
+        "openings": 641
+      },
+      {
+        "company": "Fidelity",
+        "ats": "workday",
+        "url": "https://fmr.wd1.myworkdayjobs.com/FidelityCareers",
+        "openings": 857
+      },
+      {
+        "company": "US Bank",
+        "ats": "workday",
+        "url": "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers",
+        "openings": 1229
+      },
+      {
+        "company": "State Street",
+        "ats": "workday",
+        "url": "https://statestreet.wd1.myworkdayjobs.com/Global",
+        "openings": 1162
+      },
+      {
+        "company": "Morgan Stanley",
+        "ats": "workday",
+        "url": "https://ms.wd5.myworkdayjobs.com/External",
+        "openings": 1218
+      },
+      {
+        "company": "BlackRock",
+        "ats": "workday",
+        "url": "https://blackrock.wd1.myworkdayjobs.com/BlackRock_Professional",
+        "openings": 277
+      }
+    ],
+    "Retail & consumer": [
+      {
+        "company": "Target",
+        "ats": "workday",
+        "url": "https://target.wd5.myworkdayjobs.com/targetcareers",
+        "openings": 2000
+      },
+      {
+        "company": "Nike",
+        "ats": "workday",
+        "url": "https://nike.wd1.myworkdayjobs.com/nke",
+        "openings": 732
+      },
+      {
+        "company": "Gap Inc.",
+        "ats": "workday",
+        "url": "https://gapinc.wd1.myworkdayjobs.com/GAPINC",
+        "openings": 233
+      },
+      {
+        "company": "Lowe's",
+        "ats": "workday",
+        "url": "https://lowes.wd5.myworkdayjobs.com/LWS_External_CS",
+        "openings": 12992
+      },
+      {
+        "company": "Kraft Heinz",
+        "ats": "workday",
+        "url": "https://heinz.wd1.myworkdayjobs.com/KraftHeinz_Careers",
+        "openings": 927
+      },
+      {
+        "company": "Peloton",
+        "ats": "greenhouse",
+        "slug": "peloton",
+        "openings": 43
+      },
+      {
+        "company": "Glossier",
+        "ats": "greenhouse",
+        "slug": "glossier",
+        "openings": 22
+      }
+    ],
+    "Healthcare & life sciences": [
+      {
+        "company": "CVS Health",
+        "ats": "workday",
+        "url": "https://cvshealth.wd1.myworkdayjobs.com/cvs_health_careers",
+        "openings": 19062
+      },
+      {
+        "company": "Humana",
+        "ats": "workday",
+        "url": "https://humana.wd5.myworkdayjobs.com/Humana_External_Career_Site",
+        "openings": 308
+      },
+      {
+        "company": "Pfizer",
+        "ats": "workday",
+        "url": "https://pfizer.wd1.myworkdayjobs.com/PfizerCareers",
+        "openings": 627
+      },
+      {
+        "company": "Medtronic",
+        "ats": "workday",
+        "url": "https://medtronic.wd1.myworkdayjobs.com/MedtronicCareers",
+        "openings": 984
+      },
+      {
+        "company": "Abbott",
+        "ats": "workday",
+        "url": "https://abbott.wd5.myworkdayjobs.com/abbottcareers",
+        "openings": 2000
+      },
+      {
+        "company": "Baxter",
+        "ats": "workday",
+        "url": "https://baxter.wd1.myworkdayjobs.com/baxter",
+        "openings": 522
+      },
+      {
+        "company": "Cardinal Health",
+        "ats": "workday",
+        "url": "https://cardinalhealth.wd1.myworkdayjobs.com/EXT",
+        "openings": 858
+      },
+      {
+        "company": "Elevance Health",
+        "ats": "workday",
+        "url": "https://elevancehealth.wd1.myworkdayjobs.com/ANT",
+        "openings": 277
+      },
+      {
+        "company": "Oscar Health",
+        "ats": "greenhouse",
+        "slug": "oscar",
+        "openings": 198
+      },
+      {
+        "company": "Hims & Hers",
+        "ats": "ashby",
+        "slug": "hims-and-hers",
+        "openings": 147
+      }
+    ],
+    "Industrial, auto & logistics": [
+      {
+        "company": "General Motors",
+        "ats": "workday",
+        "url": "https://generalmotors.wd5.myworkdayjobs.com/Careers_GM",
+        "openings": 704
+      },
+      {
+        "company": "Caterpillar",
+        "ats": "workday",
+        "url": "https://cat.wd5.myworkdayjobs.com/CaterpillarCareers",
+        "openings": 1002
+      },
+      {
+        "company": "3M",
+        "ats": "workday",
+        "url": "https://3m.wd1.myworkdayjobs.com/Search",
+        "openings": 788
+      },
+      {
+        "company": "Boeing",
+        "ats": "workday",
+        "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS",
+        "openings": 756
+      },
+      {
+        "company": "Motorola Solutions",
+        "ats": "workday",
+        "url": "https://motorolasolutions.wd5.myworkdayjobs.com/Careers",
+        "openings": 864
+      },
+      {
+        "company": "GE Aerospace",
+        "ats": "workday",
+        "url": "https://geaerospace.wd5.myworkdayjobs.com/GE_ExternalSite",
+        "openings": 597
+      },
+      {
+        "company": "Flexport",
+        "ats": "greenhouse",
+        "slug": "flexport",
+        "openings": 186
+      },
+      {
+        "company": "Samsara",
+        "ats": "greenhouse",
+        "slug": "samsara",
+        "openings": 316
+      }
+    ],
+    "Media, telecom & entertainment": [
+      {
+        "company": "Disney",
+        "ats": "workday",
+        "url": "https://disney.wd5.myworkdayjobs.com/disneycareer",
+        "openings": 77
+      },
+      {
+        "company": "Warner Bros. Discovery",
+        "ats": "workday",
+        "url": "https://warnerbros.wd5.myworkdayjobs.com/global",
+        "openings": 206
+      },
+      {
+        "company": "T-Mobile",
+        "ats": "workday",
+        "url": "https://tmobile.wd1.myworkdayjobs.com/External",
+        "openings": 2000
+      },
+      {
+        "company": "Verizon",
+        "ats": "workday",
+        "url": "https://verizon.wd12.myworkdayjobs.com/verizon-careers",
+        "openings": 1252
+      },
+      {
+        "company": "The New York Times",
+        "ats": "greenhouse",
+        "slug": "thenewyorktimes",
+        "openings": 168
+      },
+      {
+        "company": "Vox Media",
+        "ats": "greenhouse",
+        "slug": "voxmedia",
+        "openings": 19
+      },
+      {
+        "company": "Twitch",
+        "ats": "greenhouse",
+        "slug": "twitch",
+        "openings": 55
+      }
+    ],
+    "Consulting & professional services": [
+      {
+        "company": "Accenture",
+        "ats": "workday",
+        "url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers",
+        "openings": 2000
+      },
+      {
+        "company": "PwC",
+        "ats": "workday",
+        "url": "https://pwc.wd3.myworkdayjobs.com/Global_Experienced_Careers",
+        "openings": 3773
+      },
+      {
+        "company": "Bounteous",
+        "ats": "lever",
+        "slug": "bounteous",
+        "openings": 34
+      }
+    ],
+    "Insurance": [
+      {
+        "company": "Allstate",
+        "ats": "workday",
+        "url": "https://allstate.wd5.myworkdayjobs.com/allstate_careers",
+        "openings": 412
+      },
+      {
+        "company": "Travelers",
+        "ats": "workday",
+        "url": "https://travelers.wd5.myworkdayjobs.com/External",
+        "openings": 409
+      }
+    ]
+  }
+}
