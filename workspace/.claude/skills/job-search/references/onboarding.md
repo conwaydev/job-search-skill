@@ -9,7 +9,7 @@ The person may never have used anything like this. The whole thing should feel l
 2. setup: get this computer ready
 3. resume: their baseline
 4. search: what they're looking for
-5. metrics: their numbers, checked one by one
+5. metrics: their numbers, checked once
 6. voice: how they write
 7. linkedin: optional sign-in
 8. companies: who to watch
@@ -20,7 +20,7 @@ The person may never have used anything like this. The whole thing should feel l
 ## 1. How to run it
 
 - **Progress lives in a script.** Run `scripts/onboardingState.ts` to see where they are. After each step, run `scripts/onboardingState.ts set <step> done`, or `skipped`. Set a step `in_progress` when you start it. Never edit the state file by hand.
-- **One question at a time.** Use `AskUserQuestion` when there are clear options. Use a plain question when the answer is open.
+- **One question at a time**, unless a step says to show a list and ask once. Use `AskUserQuestion` when there are clear options. Use a plain question when the answer is open.
 - **Every step can be skipped.** If they want to skip, mark it `skipped`, say in one line what they'll miss, and move on. They can come back any time by saying "let's finish setup".
 - **They can stop at any point.** Everything is saved as you go. If they say they need to stop, tell them: "Just open this folder again and say hi. I'll pick up right here."
 - **Show what you made.** End each step by showing the result in a few lines, or naming the file. Then say what's next.
@@ -76,29 +76,32 @@ Start from `templates/profile/search-profile.json`. Write the answers into `prof
 
 Show the profile back as a short list in plain words, not JSON, and ask if it's right.
 
-## 5. metrics: their numbers, checked one by one
+## 5. metrics: their numbers, checked once
 
-Explain why first, in about two lines: "Every number that goes in a resume or letter has to be something you can back up in an interview. Let's go through the ones on your resume so I know which I can use."
+This is one pass over a list, not an interview. Most people's numbers are fine. The point is to catch the few that aren't.
 
-1. **Seed the list.** Run `scripts/seedMetrics.ts`. It copies every resume line with a number in it into `profile/verified-metrics.md` as `unverified`.
-2. **Go through them one at a time.** For each one, ask:
-   - "Where does this come from: a report, a dashboard, a performance review, your manager, or your own estimate?"
-   - "Could you defend it if an interviewer asked how it was measured?"
-   - "Is it OK to put in writing, or should it only be said out loud?" Revenue at a public company, or anything confidential, is usually `applications-only` or `interview-only`.
+1. **Seed the list.** Run `scripts/seedMetrics.ts`. It copies every resume line with a number in it into `profile/verified-metrics.md` as `unverified`. Then run `scripts/metrics.ts list` to get them numbered.
+2. **Show the whole list in one message.** Use a short numbered list, with each claim on one line. Then ask once:
 
-   Then set `Status`, `Use` and `Source`. An estimate they're comfortable defending can be `confirmed`. Put "own estimate" in Source and note how it was worked out.
+   > These are the numbers on your resume. I'll only put numbers in applications that you could back up if an interviewer asked how you measured them. Any here you'd have trouble backing up, or that shouldn't be in writing (confidential figures, say)? If they're all fine, just say so.
 
-   When the list is long, let them do it in batches of five. They can also say "the rest are fine". If they do, still ask for one source line per claim, even a short one.
-3. **Find what's missing.** Ask about kinds of evidence that resumes often leave out:
-   - the size of the team they led or worked on;
-   - budgets they owned;
-   - money made or saved;
-   - time saved;
-   - launches and how many people used them;
-   - awards and promotions.
+3. **Confirm the rest in one go.** Everything they didn't flag:
 
-   Add each real one as a new `### claim` with its source.
-4. **Show the result:** how many are confirmed, how many are interview-only, and how many are still unverified. Unverified ones simply won't be used. They can confirm them later by saying "let's check my numbers".
+   ```
+   scripts/metrics.ts set all confirmed --except <flagged numbers> --source "<what they said, e.g. their own records>"
+   ```
+
+4. **Ask about the flagged ones only**, together in one short follow-up. For each, find out whether it's:
+   - an estimate they're comfortable with (`confirmed`, with "own estimate" as the source);
+   - fine to say but not write (`--use interview-only`);
+   - fine in an application but not on public profiles (`--use applications-only`);
+   - something to drop (`do-not-use`).
+
+   Set them with `scripts/metrics.ts set <n,n> <status> [--use …] [--source …]`.
+5. **One question about what's missing.** Ask: "Anything you're proud of that has a number but isn't on your resume? Team size, a budget, money made or saved, time saved, a launch, an award?" Add each real one as a new `### claim` with its source. If they say no, move on.
+6. **Show the result in one line**, for example: "12 confirmed, 2 for interviews only, 1 dropped."
+
+If they ask why at any point, say in one line: anything they can't back up is a risk in an interview, so it stays out.
 
 ## 6. voice: how they write
 

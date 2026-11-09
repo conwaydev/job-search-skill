@@ -49,7 +49,7 @@ Claude walks you through eight short parts, one question at a time. Any part can
 1. **Gets the computer ready.** It downloads Node, the free tool the scripts run on, into the folder, and checks there's a browser. This needs no admin password.
 2. **Your resume.** Drop in a PDF or Word file. It turns the resume into your baseline and shows it back so you can check it.
 3. **What you're looking for.** Titles, level, places, remote, pay floor, and dealbreakers.
-4. **Your numbers.** It goes through every figure on your resume and asks where each one comes from. Only confirmed facts are used in applications.
+4. **Your numbers.** It shows every figure on your resume in one list and asks which, if any, you couldn't back up in an interview. Only those get a follow-up. Only confirmed facts are used in applications.
 5. **How you write.** Paste something you wrote, and tell it two or three stories you're proud of.
 6. **LinkedIn, optional.** A browser window opens and you sign in yourself. It never sees your password. You can skip this; it still searches LinkedIn signed out.
 7. **Companies to watch.** Pick from a list of about 100 verified company boards in eight industries, or name your own.
