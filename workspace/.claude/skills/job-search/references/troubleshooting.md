@@ -12,7 +12,7 @@ Fix what you can yourself. Then tell them in a sentence what happened and what y
 
 | What you see | What it means | What to do |
 |---|---|---|
-| `node: command not found`, `'node' is not recognized`, or a Node version below 22.13 | Node isn't installed or isn't on the path | Follow [setup.md](setup.md) |
+| `node: command not found`, `'node' is not recognized`, or a Node version below 22.18 | Node isn't installed or isn't on the path | Follow [setup.md](setup.md) |
 | `Cannot find package 'playwright'` | Dependencies aren't installed | Run `npm ci` in `.claude/skills/job-search/` (see [setup.md](setup.md)) |
 | `Executable doesn't exist` from Playwright | No browser for Playwright | Install Chrome, or run `npx playwright install chromium` in the skill folder |
 | `no_search_profile` | Onboarding hasn't built `search-profile.json` yet | Do that onboarding step ([onboarding.md](onboarding.md)) |
