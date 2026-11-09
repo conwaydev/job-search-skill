@@ -1,0 +1,22 @@
+{
+  "name": "",
+  "positioning": "One or two sentences, in their words, on what they do best and want to do next.",
+  "targetTitles": [],
+  "searchQueries": [],
+  "locations": [],
+  "remote": true,
+  "country": "United States",
+  "minSalaryUSD": null,
+  "staleAfterDays": 21,
+  "titleFilter": {
+    "levels": [],
+    "domainKeywords": [],
+    "excludeKeywords": ["intern", "internship"],
+    "wrongFunctionKeywords": [],
+    "alwaysIncludeKeywords": []
+  },
+  "mustHave": [],
+  "dealbreakers": [],
+  "industries": [],
+  "notes": ""
+}

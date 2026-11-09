@@ -44,6 +44,7 @@ export const profileFiles = {
   learnedRules: path.join(profileDir, 'learned-rules.md'),
   sources: path.join(profileDir, 'sources.json'),
   onboardingState: path.join(profileDir, 'onboarding-state.json'),
+  links: path.join(profileDir, 'links.json'),
 };
 
 /** Create a directory (and parents) if it is missing, and return it. */

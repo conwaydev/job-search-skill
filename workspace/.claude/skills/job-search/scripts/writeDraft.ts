@@ -25,7 +25,7 @@ async function main() {
   const baseline = db
     .prepare("SELECT id FROM resume_versions WHERE kind = 'baseline' AND is_current_baseline = 1")
     .get() as { id: number } | undefined;
-  if (!baseline) die({ error: 'no_baseline', message: 'Run syncBaseline.ts first' });
+  if (!baseline) die({ error: 'no_baseline', hint: 'No baseline resume yet. Do the resume step of onboarding (references/onboarding.md), which ends with syncBaseline.ts.' });
 
   const slug = `${job.company}-${job.title}`
     .toLowerCase()
