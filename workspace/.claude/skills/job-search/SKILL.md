@@ -152,6 +152,7 @@ scripts/checkLiveness.ts --ids 12,15      # are these still open?
 scripts/writeScore.ts --file data/tmp/score.json
 scripts/updateStatus.ts <id> applied "note"
 scripts/statusSnapshot.ts                 # counts and possibly-ghosted roles
+scripts/searchReview.ts [--due|--mark]    # what's working; is a look-back due?
 scripts/auditProse.ts <file>              # check a draft before showing it
 scripts/renderDocument.ts <application>   # resume and letter to PDF (--baseline: preview the baseline)
 scripts/renderReadout.ts [--open]         # refresh the tracker, readouts/pipeline.html
