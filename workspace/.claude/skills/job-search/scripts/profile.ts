@@ -85,7 +85,7 @@ export function searchQueries(): string[] {
   return [...new Set(all.map((q) => q.toLowerCase()))];
 }
 
-/** "Chicago, Illinois, United States": the plain-text form LinkedIn accepts. */
+/** "Denver, Colorado, United States": the plain-text form LinkedIn accepts. */
 export function placeLabel(place: Place): string {
   const p = loadProfile();
   return [place.city, place.region, place.country ?? p.country].filter(Boolean).join(', ');
