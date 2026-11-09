@@ -2,14 +2,9 @@ import { writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { getDb, out, die } from './db.ts';
 import { applicationsDir, ensureDir } from './paths.ts';
+import { readInput } from './input.ts';
 
 const outputDir = path.join(applicationsDir, '_drafts');
-
-async function readStdin(): Promise<string> {
-  const chunks: Buffer[] = [];
-  for await (const chunk of process.stdin) chunks.push(chunk as Buffer);
-  return Buffer.concat(chunks).toString('utf8');
-}
 
 async function main() {
   const [, , jobIdArg, draftType] = process.argv;
@@ -18,7 +13,7 @@ async function main() {
     die({ error: 'usage', message: 'writeDraft.ts <jobId> resume|cover_letter  (content via stdin)' });
   }
 
-  const content = await readStdin();
+  const content = await readInput();
   if (!content.trim()) die({ error: 'empty_content' });
 
   const db = getDb();
