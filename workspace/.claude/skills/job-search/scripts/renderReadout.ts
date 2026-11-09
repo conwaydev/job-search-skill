@@ -50,7 +50,7 @@ const funnel = [
   { label: 'Found', n: found },
   { label: 'Scored', n: scored },
   { label: 'Applied', n: atLeast(0) },
-  { label: 'Heard back', n: atLeast(1) },
+  { label: 'Moved forward', n: atLeast(1) },
   { label: 'Interviewed', n: atLeast(2) },
   { label: 'Offer', n: atLeast(3) },
 ];
@@ -93,6 +93,18 @@ const link = (r: { url: string; canonical_url: string | null }, text: string) =>
   `<a href="${esc(r.canonical_url ?? r.url)}" target="_blank" rel="noopener">${esc(text)}</a>`;
 const pct = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)}%` : '—');
 
+const isQuiet = (a: (typeof active)[number]) => {
+  const d = daysSince(a.status_updated_at);
+  return d !== null && d >= staleAfterDays && a.status !== 'offer';
+};
+const fresh = active.filter((a) => !isQuiet(a));
+const quiet = active.filter(isQuiet).sort((x, y) => (y.status_updated_at ?? '').localeCompare(x.status_updated_at ?? ''));
+const activeRow = (a: (typeof active)[number]) => {
+  const d = daysSince(a.status_updated_at);
+  const q = isQuiet(a);
+  return `<li class="row${q ? ' quiet' : ''}"><div class="main">${link(a, a.title)}<div class="muted small">${esc(a.company)} · #${a.id}</div></div><div class="side">${pill(a.status)}<div class="small ${q ? 'warn' : 'muted'}">${d === null ? '' : d === 0 ? 'today' : `${d} day${d === 1 ? '' : 's'} ago`}</div></div></li>`;
+};
+
 const max = Math.max(1, ...funnel.map((f) => f.n));
 const updated = new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
 
@@ -103,10 +115,10 @@ const body = `
 </header>
 
 <section class="kpis">
-  <div class="kpi"><div class="v">${active.length}</div><div class="l">Active applications</div></div>
+  <div class="kpi"><div class="v">${fresh.length}</div><div class="l">Active, recent news</div></div>
   <div class="kpi"><div class="v">${active.filter((a) => a.status === 'interview').length}</div><div class="l">Interviewing now</div></div>
   <div class="kpi"><div class="v">${applied}</div><div class="l">Applied, all time</div></div>
-  <div class="kpi"><div class="v">${pct(responded, applied)}</div><div class="l">Heard back</div></div>
+  <div class="kpi"><div class="v">${pct(responded, applied)}</div><div class="l">Got a reply</div></div>
 </section>
 
 <h2>How far applications get</h2>
@@ -120,16 +132,12 @@ ${funnel
 ${closed.length ? `<p class="muted small">Closed: ${closed.map((c) => `${c.n} ${esc((LABEL[c.status] ?? c.status).toLowerCase())}`).join(', ')}.</p>` : ''}
 
 <h2>Active applications</h2>
+${active.length ? '' : `<p class="muted">Nothing in progress yet. When you apply somewhere, say so and it shows up here.</p>`}
+${fresh.length ? `<ul class="rows">${fresh.map(activeRow).join('\n')}</ul>` : active.length ? `<p class="muted">Nothing has moved in the last ${staleAfterDays} days.</p>` : ''}
 ${
-  active.length
-    ? `<ul class="rows">${active
-        .map((a) => {
-          const d = daysSince(a.status_updated_at);
-          const quiet = d !== null && d >= staleAfterDays && a.status !== 'offer';
-          return `<li class="row${quiet ? ' quiet' : ''}"><div class="main">${link(a, a.title)}<div class="muted small">${esc(a.company)} · #${a.id}</div></div><div class="side">${pill(a.status)}<div class="small ${quiet ? 'warn' : 'muted'}">${d === null ? '' : d === 0 ? 'today' : `${d} day${d === 1 ? '' : 's'} ago`}${quiet ? ' · gone quiet' : ''}</div></div></li>`;
-        })
-        .join('\n')}</ul>`
-    : `<p class="muted">Nothing in progress yet. When you apply somewhere, say so and it shows up here.</p>`
+  quiet.length
+    ? `<details class="quietgroup"><summary><span class="warn">${quiet.length} gone quiet</span> <span class="muted small">· no news in ${staleAfterDays}+ days. Worth a follow-up, or calling it ghosted.</span></summary><ul class="rows">${quiet.map(activeRow).join('\n')}</ul></details>`
+    : ''
 }
 
 <h2>Recent activity</h2>
@@ -137,7 +145,7 @@ ${
   recent.length
     ? `<ol class="timeline">${recent
         .map(
-          (r) => `<li><div class="small muted">${esc(r.changed_at.slice(0, 10))}</div><div>${pill(r.status)} <strong>${esc(r.company)}</strong> · ${esc(r.title)}</div>${r.note ? `<div class="small note">${esc(r.note)}</div>` : ''}</li>`
+          (r) => `<li><div class="small muted">${esc(r.changed_at.slice(0, 10))}</div><div>${pill(r.status)} <strong>${esc(r.company)}</strong> · ${esc(r.title)}</div>${r.note ? (r.note.length > 240 ? `<details class="small note"><summary>${esc(r.note.slice(0, 200).replace(/\s+\S*$/, ''))}…</summary>${esc(r.note)}</details>` : `<div class="small note">${esc(r.note)}</div>`) : ''}</li>`
         )
         .join('\n')}</ol>`
     : `<p class="muted">No activity yet.</p>`
@@ -154,7 +162,7 @@ ${
     : `<p class="muted">No scored roles at 70 or above yet. Say "find new jobs" to look.</p>`
 }
 
-<p class="muted small foot">Kept on your computer in readouts/pipeline.html. A role "goes quiet" after ${staleAfterDays} days with no news.</p>
+<p class="muted small foot">"Got a reply" counts any answer after applying, rejections included. "Moved forward" means a screen or better. A role goes quiet after ${staleAfterDays} days with no news.</p>
 `;
 
 const css = `
@@ -165,7 +173,7 @@ header { margin-bottom: 24px; }
 .kpi .v { font-size: 1.6rem; font-weight: 650; font-variant-numeric: tabular-nums; }
 .kpi .l { color: var(--muted); font-size: 0.85rem; }
 .funnel { display: grid; gap: 8px; }
-.frow { display: grid; grid-template-columns: 96px 1fr 44px; gap: 10px; align-items: center; }
+.frow { display: grid; grid-template-columns: 112px 1fr 44px; gap: 10px; align-items: center; }
 .flabel { font-size: 0.9rem; }
 .fbar { height: 14px; background: var(--accent-soft); border-radius: 4px; overflow: hidden; }
 .fbar span { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
@@ -177,6 +185,9 @@ header { margin-bottom: 24px; }
 .row .side { text-align: right; flex-shrink: 0; }
 .row.quiet { box-shadow: inset 3px 0 0 var(--warn); }
 .warn { color: var(--warn); }
+.quietgroup { margin-top: 12px; }
+.quietgroup summary { cursor: pointer; padding: 8px 0; }
+.quietgroup .rows { margin-top: 8px; }
 .pill { display: inline-block; font-size: 0.78rem; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); white-space: nowrap; }
 .s-interview, .s-offer { border-color: var(--good); color: var(--good); }
 .s-screening { border-color: var(--accent); color: var(--accent); }
@@ -187,6 +198,9 @@ header { margin-bottom: 24px; }
 .timeline li { margin: 0 0 14px; position: relative; }
 .timeline li::before { content: ""; position: absolute; left: -20px; top: 7px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
 .note { color: var(--muted); margin-top: 2px; overflow-wrap: anywhere; }
+details.note summary { cursor: pointer; list-style: none; }
+details.note summary::-webkit-details-marker { display: none; }
+details.note[open] summary { display: none; }
 .foot { margin-top: 40px; }
 `;
 
@@ -197,4 +211,4 @@ if (process.argv.includes('--open')) {
   const cmd = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'explorer' : 'xdg-open';
   execFile(cmd, [file], () => {});
 }
-out({ file, active: active.length, applied, topOpen: top.length });
+out({ file, active: active.length, goneQuiet: quiet.length, applied, topOpen: top.length });
