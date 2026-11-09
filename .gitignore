@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+
+# Personal data lives in the workspace folders. Only the empty placeholders ship.
+workspace/profile/*
+workspace/data/*
+workspace/applications/*
+workspace/readouts/*
+!workspace/*/.gitkeep
+workspace/.runtime/
+workspace/.claude/settings.local.json
