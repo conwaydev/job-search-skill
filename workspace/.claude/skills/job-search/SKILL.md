@@ -140,6 +140,7 @@ scripts/doctor.ts                         # is this computer ready?
 scripts/onboardingState.ts [set <step> <status>]  # setup progress
 scripts/extractDocx.ts <file.docx>        # text of a Word resume
 scripts/seedMetrics.ts                    # resume numbers into verified-metrics.md as unverified
+scripts/metrics.ts list | set <n|all> <status> [--use] [--source] [--except]  # bulk-update claims
 scripts/query.ts baseline                 # current resume version (its id goes on every score)
 scripts/query.ts pending-score            # jobs waiting for a score
 scripts/query.ts job <id>                 # one job, its scores, history and drafts
