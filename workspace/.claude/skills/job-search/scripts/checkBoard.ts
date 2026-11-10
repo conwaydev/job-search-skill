@@ -1,4 +1,5 @@
 import { out, die } from './db.ts';
+import { detectBoard, searchSuccessFactors, searchPhenom, searchIcims } from './moreBoards.ts';
 
 /**
  * Print every job title/location/id on a company's live Greenhouse, Lever,
@@ -53,16 +54,30 @@ async function checkWorkday(boardUrl: string) {
   return jobs;
 }
 
+// These three have no list-everything endpoint; they search, with the given words or none.
+const words = process.argv[4] ?? '';
+const checkSuccessFactors = (url: string) => searchSuccessFactors(url, words, 4);
+const checkPhenom = (url: string) => searchPhenom(url, words, 5);
+const checkIcims = (url: string) => searchIcims(url, words, 2);
+
 async function main() {
   const [, , ats, slug] = process.argv;
+  if (ats === 'detect' && slug) {
+    // Which job system does this careers page run on, and what goes in sources.json?
+    out(await detectBoard(slug));
+    return;
+  }
   const checkers: Record<string, (s: string) => Promise<unknown[]>> = {
     greenhouse: checkGreenhouse,
     lever: checkLever,
     ashby: checkAshby,
     workday: checkWorkday,
+    successfactors: checkSuccessFactors,
+    phenom: checkPhenom,
+    icims: checkIcims,
   };
   if (!checkers[ats] || !slug) {
-    die({ error: 'usage', message: 'checkBoard.ts <greenhouse|lever|ashby> <companySlug>  |  checkBoard.ts workday <boardUrl> ["search words"]' });
+    die({ error: 'usage', message: 'checkBoard.ts <greenhouse|lever|ashby> <companySlug>  |  checkBoard.ts <workday|successfactors|phenom|icims> <boardUrl> ["search words"]  |  checkBoard.ts detect <careers page url>' });
   }
   const jobs = await checkers[ats](slug);
   out({ company: slug, ats, count: jobs.length, jobs });

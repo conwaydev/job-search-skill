@@ -4,6 +4,7 @@ import { out, die } from './db.ts';
 import { upsertJob } from './upsertJob.ts';
 import type { RawJob } from './upsertJob.ts';
 import { fetchCareerPage } from './careerPages.ts';
+import { fetchSuccessFactors, fetchPhenom, fetchIcims } from './moreBoards.ts';
 import { isInBandTitle } from './titleFilter.ts';
 import { profileFiles } from './paths.ts';
 import { hasProfile, searchQueries, isInScopeLocation } from './profile.ts';
@@ -16,6 +17,12 @@ interface Sources {
   ashby?: string[];
   /** Workday career sites, e.g. { company: "Target", url: "https://target.wd5.myworkdayjobs.com/targetcareers" }. */
   workday?: { company: string; url: string }[];
+  /** SAP SuccessFactors career sites, e.g. { company: "XPO", url: "https://jobs.xpo.com" }. */
+  successfactors?: { company: string; url: string }[];
+  /** Phenom career sites, with the locale path, e.g. { company: "UPS", url: "https://www.jobs-ups.com/us/en" }. */
+  phenom?: { company: string; url: string }[];
+  /** iCIMS career portals, e.g. { company: "PepsiCo", url: "https://uscareers-pepsico.icims.com" }. */
+  icims?: { company: string; url: string }[];
   careerPages?: { company: string; url: string }[];
 }
 
@@ -225,6 +232,21 @@ async function main() {
     }
   }
 
+  const searchBoards = [
+    ['successfactors', sources.successfactors, fetchSuccessFactors],
+    ['phenom', sources.phenom, fetchPhenom],
+    ['icims', sources.icims, fetchIcims],
+  ] as const;
+  for (const [ats, sites, fetchSite] of searchBoards) {
+    for (const site of sites ?? []) {
+      try {
+        for (const job of await fetchSite(site, queries)) record(job);
+      } catch (e) {
+        results.errors.push(`${ats}:${site.company}: ${String(e)}`);
+      }
+    }
+  }
+
   for (const page of sources.careerPages ?? []) {
     try {
       const { jobs, notes } = await fetchCareerPage(page);
@@ -247,6 +269,9 @@ async function main() {
     (sources.lever?.length ?? 0) +
     (sources.ashby?.length ?? 0) +
     (sources.workday?.length ?? 0) +
+    (sources.successfactors?.length ?? 0) +
+    (sources.phenom?.length ?? 0) +
+    (sources.icims?.length ?? 0) +
     (sources.careerPages?.length ?? 0);
   if (configured === 0) results.notes.push('No companies configured in profile/sources.json — nothing was fetched.');
 
