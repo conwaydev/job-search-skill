@@ -70,7 +70,7 @@ Onboarding does not have to be finished before you help. A baseline resume alone
 | `profile/sources.json` | Company career boards to pull from | You, when they add or drop companies |
 | `profile/links.json` | Links to their published tracker and prep pages | You, when you publish one |
 | `profile/onboarding-state.json` | Which setup steps are done | `scripts/onboardingState.ts` only |
-| `applications/<company-role>/` | Tailored resume and letter for one application, plus the PDFs | You |
+| `applications/<company-role>/` | Tailored resume and letter for one application, plus the PDFs and Word copies | You |
 | `readouts/` | `pipeline.html` and dated digests | Scripts |
 | `data/` | `jobs.db`, LinkedIn session, browser profile | Scripts only |
 
@@ -157,7 +157,7 @@ scripts/updateStatus.ts <id> applied "note"
 scripts/statusSnapshot.ts                 # counts and possibly-ghosted roles
 scripts/searchReview.ts [--due|--mark]    # what's working; is a look-back due?
 scripts/auditProse.ts <file>              # check a draft before showing it
-scripts/renderDocument.ts <application>   # resume and letter to PDF (--baseline: preview the baseline)
+scripts/renderDocument.ts <application>   # resume and letter to PDF and Word (--baseline: preview the baseline)
 scripts/renderReadout.ts [--open]         # refresh the tracker, readouts/pipeline.html
 scripts/renderPrep.ts <application> <md>  # prep notes to a phone-friendly page
 scripts/renderDigest.ts                   # what's new since the last digest

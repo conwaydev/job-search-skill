@@ -1,42 +1,29 @@
 /**
  * Turns a tailored resume and cover letter into PDFs an employer can read and
  * an applicant tracking system can parse: one column, real text, system fonts.
+ * Each one also gets a Word copy (.docx) built on Word's own styles, so the
+ * applicant can change the font or wording and save their own PDF.
  *
  *   renderDocument.ts <application-slug> [--a4]
  *     reads  applications/<slug>/resume.json and cover-letter.json
  *     writes applications/<slug>/<Name> - <Role>.pdf
  *            applications/<slug>/<Name> - <Role> - Cover Letter.pdf
  *            applications/<slug>/<Name> - <Role> - Cover Letter and Resume.pdf
+ *            plus <Name> - <Role>.docx and <Name> - <Role> - Cover Letter.docx
  *   renderDocument.ts --baseline [--a4]
- *     writes profile/<Name> - Resume.pdf from the baseline, to check the layout
+ *     writes profile/<Name> - Resume.pdf (and .docx) from the baseline
  *
  * The letterhead always comes from the baseline header, so it can't drift.
  * Run scripts/auditProse.ts on both files first; this does not check content.
  */
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { applicationsDir, profileDir, profileFiles, ensureDir } from './paths.ts';
 import { esc, fileSafe } from './html.ts';
 import { findChrome, loadPlaywright } from './browserSession.ts';
 import { out, die } from './db.ts';
 
-interface Link { label?: string; url: string }
-interface Header { name: string; headline?: string; location?: string; email?: string; phone?: string; links?: Link[] }
-interface Resume {
-  header: Header;
-  targetRole?: string;
-  summary: string;
-  skills?: { category: string; items: string[] }[];
-  experience: { company: string; location?: string; roles: { title: string; dates: string; bullets: string[] }[] }[];
-  education?: { institution: string; location?: string; dates?: string; credential?: string; field?: string }[];
-  certifications?: { name: string; issuer?: string; date?: string }[];
-  sections?: { heading: string; items: string[] }[];
-}
-interface Letter {
-  role: string; company: string; date?: string;
-  recipient?: { name?: string; title?: string; company?: string; location?: string };
-  greeting?: string; body: string[]; closing?: string; signature?: string;
-}
+import { resumeDocx, letterDocx, type Header, type Resume, type Letter } from './docx.ts';
 
 const CSS = `
 @page { margin: 0.55in 0.65in; }
@@ -152,7 +139,9 @@ const name = baseline.header.name;
 if (args.includes('--baseline')) {
   const file = path.join(profileDir, fileSafe(`${name} - Resume.pdf`));
   await toPdf([{ html: wrap(`${name} - Resume`, resumeHtml(baseline)), file }], a4);
-  out({ written: [file] });
+  const docx = file.replace(/\.pdf$/, '.docx');
+  writeFileSync(docx, resumeDocx(baseline, `${name} - Resume`, a4));
+  out({ written: [file, docx] });
 } else {
   const slug = args.find((a) => !a.startsWith('--'));
   if (!slug) die({ error: 'usage', hint: 'renderDocument.ts <application-slug> | --baseline' });
@@ -172,5 +161,11 @@ if (args.includes('--baseline')) {
   }
   ensureDir(dir);
   await toPdf(jobs, a4);
-  out({ written: jobs.map((j) => j.file), ...(letter ? {} : { note: 'No cover-letter.json, so only the resume was rendered. Every application gets a letter.' }) });
+  const words = [path.join(dir, `${base}.docx`)];
+  writeFileSync(words[0], resumeDocx(resume, `${name} - ${role}`, a4));
+  if (letter) {
+    words.push(path.join(dir, `${base} - Cover Letter.docx`));
+    writeFileSync(words[1], letterDocx(letter, baseline.header, `${name} - ${role} - Cover Letter`, a4));
+  }
+  out({ written: [...jobs.map((j) => j.file), ...words], ...(letter ? {} : { note: 'No cover-letter.json, so only the resume was rendered. Every application gets a letter.' }) });
 }
