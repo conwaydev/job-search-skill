@@ -12,12 +12,6 @@ export interface RawJob {
   sourceId?: string;
   rawPayload?: unknown;
   discoveryQuery?: string;
-  /**
-   * Use this exact dedup key instead of deriving one. Only importData.ts sets
-   * it, so a job synced from another machine matches the row it already is
-   * rather than being re-derived from a different field and inserted twice.
-   */
-  dedupKeyOverride?: string;
 }
 
 export interface UpsertResult {
@@ -103,7 +97,7 @@ function sameDescription(a: string, b: string): boolean {
  */
 export function upsertJob(job: RawJob): UpsertResult {
   const db = getDb();
-  const key = job.dedupKeyOverride ?? dedupKey(job.company, job.title, job.sourceId ?? job.url);
+  const key = dedupKey(job.company, job.title, job.sourceId ?? job.url);
   const byKey = db
     .prepare('SELECT id, company, title, status, url, description_text, canonical_url FROM jobs WHERE dedup_key = ?')
     .get(key) as JobRow | undefined;

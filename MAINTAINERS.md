@@ -18,7 +18,6 @@ tools/package.mjs       builds dist/JobSearch.zip
 tools/START HERE.txt    added to the top of the zip
 tools/verifyBoards.mjs  re-checks the company board list
 tools/board-candidates.json  boards verifyBoards checks
-tools/importLegacy.ts   brings an older job-search setup into a new folder
 ```
 
 ## Releasing
