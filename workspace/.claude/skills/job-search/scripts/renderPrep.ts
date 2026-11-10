@@ -9,13 +9,15 @@
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
-import { applicationsDir } from './paths.ts';
+import { applicationsDir, workspaceDir } from './paths.ts';
 import { page, markdown } from './html.ts';
 import { out, die } from './db.ts';
 
 const [slug, given] = process.argv.slice(2);
 if (!slug) die({ error: 'usage', hint: 'renderPrep.ts <application-slug> [file.md]' });
-const src = given ? path.resolve(given) : path.join(applicationsDir, slug, 'prep.md');
+// A relative path is relative to the JobSearch folder, which is how the docs
+// write it, not to the skill folder the script runs from.
+const src = given ? path.resolve(workspaceDir, given) : path.join(applicationsDir, slug, 'prep.md');
 if (!existsSync(src)) die({ error: 'missing_file', file: src, hint: 'Write the prep notes first (references/interview-prep.md).' });
 const md = readFileSync(src, 'utf8');
 const title = md.match(/^#\s+(.+)$/m)?.[1]?.trim() ?? `Interview prep: ${slug}`;

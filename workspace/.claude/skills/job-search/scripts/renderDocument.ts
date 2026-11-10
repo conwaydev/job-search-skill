@@ -52,6 +52,9 @@ h2 { font-size: 10.5pt; text-transform: uppercase; letter-spacing: 0.06em; margi
 .co-line, .role-line { display: flex; justify-content: space-between; gap: 12px; }
 .co-line { font-weight: 700; }
 .role-line { font-style: italic; margin-top: 2px; }
+/* Italic glyphs lean past their box, and the last letter of a right-aligned
+   date gets clipped at the margin without a little room. */
+.role-line > span:last-child { padding-right: 0.15em; }
 ul { margin: 3px 0 0 0; padding-left: 16px; }
 li { margin: 2px 0; }
 p { margin: 0 0 10px; }
