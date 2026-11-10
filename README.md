@@ -4,6 +4,8 @@ A job-search assistant that lives in a folder on your computer and runs in the C
 
 It handles the searching, the checking and the bookkeeping. You decide what to apply for, and you send every application yourself. It won't put a number in an application unless you've confirmed it. Hiring managers are buried in machine-written applications right now, and this is built to help you send fewer, better ones that are yours.
 
+**See it work, with a demo video and a setup walkthrough, at [conwaydev.com/job-search](https://conwaydev.com/job-search).**
+
 ## What it does
 
 **Finds jobs and checks they're still open.**
@@ -14,7 +16,7 @@ It handles the searching, the checking and the bookkeeping. You decide what to a
 - You get a score and a plain reason for it.
 - When it can't tell whether you have something a job asks for, it asks you.
 
-**Writes a resume and cover letter for each application.**
+**Writes a cover letter and resume for each application.**
 - Each one is written from scratch for that role.
 - Numbers come only from a list of facts you've confirmed.
 - Letters are built on stories you've told it, in your own voice, and checked for phrasing that sounds machine-made.
@@ -22,7 +24,7 @@ It handles the searching, the checking and the bookkeeping. You decide what to a
 
 **Tracks every application.**
 - Tell it "I applied", "I heard back" or "I have an interview Tuesday" and it updates the record.
-- Your Application Tracker page shows how far applications get, what's active, what's gone quiet, and the best roles you haven't applied to yet.
+- Your Application Tracker page shows where every application went, from applied through screens and interviews to where it stands now. It also shows recent changes with your notes, what's gone quiet, and the best roles you haven't applied to yet.
 - Before an interview it writes a prep page you can read on your phone. It covers who you're meeting, which of your stories fit, likely questions and questions to ask back.
 
 **Learns from you.**
