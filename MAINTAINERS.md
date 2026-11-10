@@ -22,14 +22,9 @@ tools/board-candidates.json  boards verifyBoards checks
 
 ## Releasing
 
-1. Bump `version` in `workspace/.claude/skills/job-search/package.json`.
-2. Commit and merge to main.
-3. Run `node tools/package.mjs`.
-4. Publish it as a GitHub release, tagged with the version:
+Releases are automatic. Every change to the skill bumps `version` in `workspace/.claude/skills/job-search/package.json` (and the two matching lines in `package-lock.json`) in the same PR. When it merges, `.github/workflows/release.yml` builds `JobSearch.zip` with `tools/package.mjs` and publishes it as release `v<version>`, with notes generated from the merged PRs. If the version on main is already released, the workflow skips, so a change that doesn't bump the version doesn't ship.
 
-   ```
-   gh release create v<version> dist/JobSearch.zip --title "v<version>" --notes "<what changed, in plain words>"
-   ```
+To build the zip locally without releasing, run `node tools/package.mjs`.
 
 The download button on conwaydev.com/job-search points at `https://github.com/conwaydev/job-search-skill/releases/latest/download/JobSearch.zip`, so a new release is live there as soon as it's published. Keep the file name `JobSearch.zip`.
 
