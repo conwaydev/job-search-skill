@@ -49,9 +49,19 @@ for (const f of ['CLAUDE.md', path.join('.claude', 'settings.json')]) {
 }
 
 console.log(`Updated the job search skill from ${from} to ${to}. Installing its dependencies...`);
-execFileSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['ci', '--no-audit', '--no-fund', '--loglevel=error'], {
-  cwd: skillDir,
-  stdio: 'inherit',
-  shell: process.platform === 'win32',
-});
+// Use the npm that ships with the Node running this script. Node installed by
+// setup lives in .runtime and usually isn't on PATH yet, so a bare `npm` fails.
+const nodeDir = path.dirname(process.execPath);
+const npmCli = [
+  path.join(nodeDir, 'node_modules', 'npm', 'bin', 'npm-cli.js'), // Windows layout
+  path.join(nodeDir, '..', 'lib', 'node_modules', 'npm', 'bin', 'npm-cli.js'), // Mac and Linux layout
+].find((p) => existsSync(p));
+const npmArgs = ['ci', '--no-audit', '--no-fund', '--loglevel=error'];
+try {
+  if (npmCli) execFileSync(process.execPath, [npmCli, ...npmArgs], { cwd: skillDir, stdio: 'inherit' });
+  else execFileSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', npmArgs, { cwd: skillDir, stdio: 'inherit', shell: process.platform === 'win32' });
+} catch {
+  console.log('The skill was updated, but installing its dependencies failed. Run setup again ("set me up") to finish.');
+  process.exit(1);
+}
 console.log('Done. Your profile, jobs and applications were not touched.');
