@@ -37,7 +37,7 @@ scripts/updateStatus.ts 42 screening "recruiter call Tue 3pm with Dana (recruite
 - History is append-only, so the note is the record. Make it useful: the date of the news, who it came from, and what is next.
 - **Only change a status on real news** from them or from the company. If they forward a message, summarize it in the note.
 - **When they say they applied,** also ask which documents they sent if it isn't obvious. That ties the outcome back to the version. Then run `scripts/searchReview.ts --due`. If it says due, offer the look-back in [learning.md](learning.md).
-- **After every status change, run `scripts/renderReadout.ts`** so `readouts/pipeline.html` is current. A status change isn't finished until the readout matches.
+- **After every status change, run `scripts/renderReadout.ts`** so `readouts/pipeline.html` is current. A status change isn't finished until the readout matches. Publishing the shared copy waits until they ask to see it (section 6).
 
 ## 3. Notes on an application
 
@@ -94,11 +94,17 @@ To archive: `scripts/updateStatus.ts <id> archived "posting gone, liveness check
 - recent activity with notes;
 - the best open roles they haven't applied to.
 
-**Keep the published copy current.** Each time the readout is refreshed:
+**The local file is refreshed after every status change. The published copy is refreshed less often**, so they don't get an approval prompt for every "I applied". Publish only when:
+- they ask to see it ("show my tracker", "how's it looking"), or
+- a "find new jobs" run has finished.
+
+To publish:
 1. Read `profile/links.json`.
 2. **If it has a `tracker` link and you have the Artifact tool,** read that artifact first (`action: read` with its URL). Then publish `readouts/pipeline.html` to the same URL. The link they bookmarked keeps working.
 3. **If there's no link yet,** publish it as a new private artifact titled "Application Tracker". Save the URL under `tracker` in `profile/links.json`, keeping any other keys.
 4. **If you don't have the Artifact tool,** tell them it's updated at `readouts/pipeline.html`. `--open` opens it in their browser.
+
+After a status change, a one-line "Updated your tracker." is enough. Don't publish.
 
 "Show my tracker" means: refresh, publish, and give them the link.
 

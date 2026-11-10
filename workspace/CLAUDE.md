@@ -6,10 +6,12 @@ This folder is one person's job search. It runs on the `job-search` skill in `.c
 
 Before replying to their first message:
 
-1. Run `node --version`. If it fails or is older than v22.18, follow `.claude/skills/job-search/references/setup.md` before anything else.
-2. Run `node --no-warnings .claude/skills/job-search/scripts/doctor.ts --quiet`. It prints nothing when all is well. Fix anything it reports.
-3. Read `profile/onboarding-state.json`.
-   - **If it is missing:** welcome them. Say in two or three short lines what this does and that setup takes about 20 minutes, can be paused any time, and that any step can be skipped. Then start onboarding (`.claude/skills/job-search/references/onboarding.md`).
+1. Run `node --no-warnings .claude/skills/job-search/scripts/doctor.ts --quiet`. It prints nothing when all is well.
+   - **If `node` isn't found, or the script won't run** (Node too old), try the Node that setup installs inside this folder: `.runtime/node/bin/node` on Mac, `.runtime/node/node.exe` on Windows. If that works, use that path in place of `node` for every command this session.
+   - **If neither works,** follow `.claude/skills/job-search/references/setup.md`.
+   - **If it reports a problem,** fix it.
+2. Read `profile/onboarding-state.json`.
+   - **If it is missing:** welcome them. Say in two or three short lines what this does and that setup takes about 15 minutes, can be paused any time, and that any step can be skipped. Then start onboarding (`.claude/skills/job-search/references/onboarding.md`).
    - **If a step isn't finished:** welcome them back and offer to continue at that step, naming it. If they asked for something else, do that first.
    - **Otherwise:** just answer them.
 

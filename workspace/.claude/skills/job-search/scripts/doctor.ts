@@ -86,7 +86,7 @@ add({
   ok: Boolean(chrome || chromium),
   required: true,
   detail: chrome ? 'Google Chrome' : chromium ? "Playwright's Chromium" : 'none found',
-  fix: 'Install Google Chrome (google.com/chrome), or run `npx playwright install chromium` in .claude/skills/job-search.',
+  fix: 'Install Google Chrome (google.com/chrome), or run scripts/installBrowser.ts.',
 });
 
 // Informational: onboarding progress and LinkedIn sign-in.
