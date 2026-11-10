@@ -75,6 +75,12 @@ function header(h: Header): string {
 function resumeHtml(r: Resume): string {
   const L: string[] = [header(r.header)];
   if (r.summary) L.push(`<h2>Summary</h2><p>${esc(r.summary)}</p>`);
+  // Skills sit above Experience, in the order tailoring.md gives: Summary,
+  // Skills, Experience, Education.
+  if (r.skills?.length) {
+    L.push('<h2>Skills</h2>');
+    for (const s of r.skills) L.push(`<p style="margin:0 0 3px"><strong>${esc(s.category)}:</strong> ${s.items.map(esc).join(', ')}</p>`);
+  }
   L.push('<h2>Experience</h2>');
   for (const job of r.experience ?? []) {
     L.push(`<div class="co"><div class="co-line"><span>${esc(job.company)}</span><span>${esc(job.location ?? '')}</span></div>`);
@@ -83,10 +89,6 @@ function resumeHtml(r: Resume): string {
       if (role.bullets?.length) L.push(`<ul>${role.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>`);
     }
     L.push('</div>');
-  }
-  if (r.skills?.length) {
-    L.push('<h2>Skills</h2>');
-    for (const s of r.skills) L.push(`<p style="margin:0 0 3px"><strong>${esc(s.category)}:</strong> ${s.items.map(esc).join(', ')}</p>`);
   }
   if (r.education?.length) {
     L.push('<h2>Education</h2>');
