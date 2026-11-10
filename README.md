@@ -40,7 +40,7 @@ You don't need to know anything technical. You won't open a terminal, and nothin
 
 ## Install
 
-1. **Unzip** `JobSearch-vX.Y.zip` and move the `JobSearch` folder somewhere you'll keep it, like your home folder or Documents. Avoid Downloads and synced folders such as iCloud Drive, OneDrive or Dropbox.
+1. **Unzip** `JobSearch.zip` and move the `JobSearch` folder somewhere you'll keep it, like your home folder or Documents. Avoid Downloads and synced folders such as iCloud Drive, OneDrive or Dropbox.
 2. **Open it.** In the Claude app, go to the **Code** tab, open the `JobSearch` folder, and say yes when it asks if you trust the folder.
 3. **Type `set me up`.**
 
