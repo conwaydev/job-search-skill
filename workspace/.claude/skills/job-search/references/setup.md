@@ -63,7 +63,7 @@ Run `doctor.ts` once more and tell them it's ready in one line, with no checklis
 
 When they have a newer `JobSearch` zip:
 1. Ask them to double-click the zip so it unzips, usually into Downloads. **Don't** unzip it over their current folder.
-2. Find the new folder yourself before asking. It's usually `Downloads/JobSearch` (or `Downloads/JobSearch 2`, or `Downloads/JobSearch-v<version>/JobSearch`) in their home folder. List the Downloads folder to find it. Ask only if it isn't there. Then run its update script from their current JobSearch folder:
+2. Find the new folder yourself before asking. It's usually `Downloads/JobSearch` (or `Downloads/JobSearch 2`, or `Downloads/JobSearch/JobSearch`, which is how Windows unzips it) in their home folder. List the Downloads folder to find it. Ask only if it isn't there. Then run its update script from their current JobSearch folder:
    ```
    node "<path to the new JobSearch folder>/.claude/skills/job-search/setup/update.mjs"
    ```

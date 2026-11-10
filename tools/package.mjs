@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Builds dist/JobSearch-v<version>.zip, the one file a person needs.
+ * Builds dist/JobSearch.zip, the one file a person needs. The name has no
+ * version in it so the "latest release" download link never changes.
  *
  *   node tools/package.mjs
  *
@@ -46,7 +47,7 @@ for (const f of files) {
 }
 writeFileSync(path.join(top, 'START HERE.txt'), readFileSync(path.join(root, 'tools/START HERE.txt'), 'utf8').replace(/\r?\n/g, '\r\n'));
 
-const zip = path.join(dist, `JobSearch-v${version}.zip`);
+const zip = path.join(dist, 'JobSearch.zip');
 rmSync(zip, { force: true });
 execFileSync('zip', ['-rqX', zip, 'JobSearch'], { cwd: stage });
 rmSync(stage, { recursive: true, force: true });
