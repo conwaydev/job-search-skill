@@ -2,12 +2,12 @@
 
 A job-search assistant that lives in a folder on your computer and runs in the Claude desktop app. You talk to it in plain English.
 
-It does the tedious parts of a search and leaves the important ones to you. It never applies for you or contacts anyone, and it won't put a number in an application unless you've confirmed it. Hiring managers are buried in machine-written applications right now, and this is built to help you send fewer, better ones that are yours.
+It handles the searching, the checking and the bookkeeping. You decide what to apply for, and you send every application yourself. It won't put a number in an application unless you've confirmed it. Hiring managers are buried in machine-written applications right now, and this is built to help you send fewer, better ones that are yours.
 
 ## What it does
 
 **Finds jobs and checks they're still open.**
-- It searches LinkedIn, Built In and the careers pages of companies you pick. It can read the job systems most employers use, including Greenhouse, Lever, Ashby, Workday, SuccessFactors, Phenom and iCIMS.
+- It searches LinkedIn, Built In and the careers pages of companies you pick. It reads the job systems many employers post on, including Greenhouse, Lever, Ashby, Workday, SuccessFactors, Phenom and iCIMS.
 - It checks each posting is still open before showing it to you, and skips listings that don't name the employer.
 
 **Scores each role against your background.**
@@ -32,7 +32,8 @@ It does the tedious parts of a search and leaves the important ones to you. It n
 ## What you need
 
 - A Mac or a Windows PC.
-- The Claude desktop app ([claude.ai/download](https://claude.ai/download)) on a Pro plan or higher. The **Code** tab it runs in isn't on the free plan. Its usage counts toward the same limits as your regular Claude chats, and setup and the first search use the most.
+- The Claude desktop app ([claude.ai/download](https://claude.ai/download)) on a Pro plan or higher. It runs in the app's **Code** tab, which isn't on the free plan.
+- Room in your Claude usage. It shares limits with your regular chats, and setup and the first search use the most.
 - About 15 minutes for setup. You can stop and pick up later.
 
 You don't need to know anything technical. You won't open a terminal, and nothing is installed outside the folder.
@@ -51,7 +52,7 @@ Claude walks you through eight short parts. Wherever it can, it drafts from your
 
 1. **Gets the computer ready.** It downloads Node, the free tool its scripts run on, into the folder, and checks for a browser. No admin password is needed.
 2. **Your resume.** Drop in a PDF or Word file, or say where it is ("it's in Downloads, called Resume 2026"). It turns your resume into a baseline and shows it back so you can check it.
-3. **What you're looking for.** It drafts titles, level and places from your resume for you to adjust, then asks your lowest acceptable pay and any dealbreakers.
+3. **What you're looking for.** It drafts titles, level and locations from your resume for you to adjust, then asks your lowest acceptable pay and any dealbreakers.
 4. **Your numbers.** It lists every figure on your resume and asks which, if any, you couldn't back up in an interview. Only those get a follow-up.
 5. **How you write.** Paste one thing you wrote, like an email or a post. Stories for cover letters come later, when the first letter needs one.
 6. **LinkedIn, if you want.** A browser window opens and you sign in yourself. Claude never sees your password. If you skip it, LinkedIn is still searched without signing in.
@@ -62,7 +63,7 @@ Close the app any time. When you open the folder again and say hi, it picks up w
 
 ## Day to day
 
-Say what you want in your own words. For example:
+Say what you want in your own words. Some examples.
 
 - "Find new jobs" or "what's new?"
 - "Score this" with a job link
@@ -77,7 +78,6 @@ Say what you want in your own words. For example:
 - **Your resume, your search, every application and every note stay in the `JobSearch` folder** on your computer. There's no separate account to create.
 - **What leaves your computer** is the job searches and pages it reads, plus your conversation with Claude, the same as any Claude chat.
 - **Your LinkedIn sign-in is saved in the folder** and never leaves it. Claude is told never to read those files.
-- **It never applies, sends a message or contacts anyone for you.**
 - **Your tracker and prep pages** can be published as private pages in your Claude account so you can open them on your phone. Only you can see them unless you share them.
 
 ## Updating
@@ -86,7 +86,7 @@ When you get a newer zip, unzip it into Downloads. Don't unzip it over your fold
 
 ## FAQ
 
-**Is using it with LinkedIn allowed?** LinkedIn's terms don't allow automated searching. It keeps searches slow and occasional, and you sign in yourself, but LinkedIn may occasionally ask you to verify your account. Signing in is optional.
+**Is using it with LinkedIn allowed?** LinkedIn's terms don't allow automated searching. It keeps searches slow and spaced out, and you sign in yourself, but LinkedIn may still ask you to verify your account. Signing in is optional.
 
 **Does it apply to jobs for me?** No, and it won't. Every application is yours to read and send.
 
@@ -95,27 +95,3 @@ When you get a newer zip, unzip it into Downloads. Don't unzip it over your fold
 **New computer?** Copy the folder over. In the copy, delete `.runtime`, `data/browser-profile` and `data/sessions`, then open it and say "set me up". Setup reinstalls what's needed, and you sign in to LinkedIn again.
 
 **Something's broken.** Say so in plain words, such as "the search isn't working". It checks itself and walks you through the fix.
-
-## For maintainers
-
-```
-workspace/              becomes the JobSearch folder
-  CLAUDE.md             first-message checks, how to talk, hard limits
-  .claude/settings.json pre-approved commands, denied paths
-  .claude/skills/job-search/
-    SKILL.md            routing and rules
-    references/         one guide per job (onboarding, scoring, tailoring, …)
-    scripts/            Node 22.18+ TypeScript, no build step
-    setup/              Node installers (sh, ps1), updater
-    templates/          resume and letter schemas, profile starters
-tools/package.mjs       builds dist/JobSearch-v<version>.zip
-tools/verifyBoards.mjs  re-checks the company board list
-```
-
-- **Release:**
-  1. Bump `version` in `workspace/.claude/skills/job-search/package.json`.
-  2. Commit.
-  3. Run `node tools/package.mjs`.
-  4. Send the zip.
-- **The zip is built from git-tracked files only,** and the build refuses to run if a scrub word appears.
-- **Testing a change:** point any script at a scratch folder with `JOBSEARCH_HOME=/some/folder`.

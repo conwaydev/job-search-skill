@@ -1,6 +1,6 @@
-JOB SEARCH: START HERE
+START HERE
 
-You need the Claude desktop app (claude.ai/download) on a paid plan.
+You need the Claude desktop app (claude.ai/download) on a Pro plan or higher.
 
 1. Move this JobSearch folder somewhere you'll keep it, like your home folder
    or Documents. Not the Downloads folder, and not inside a synced folder
@@ -10,12 +10,15 @@ You need the Claude desktop app (claude.ai/download) on a paid plan.
    folder picker) and pick this JobSearch folder. If it asks whether you
    trust the folder, say yes.
 
-3. Type:  set me up
+3. Type this and press Enter.
+
+      set me up
 
 That's it. Claude checks your computer, installs what it needs inside this
 folder, and walks you through the rest, one question at a time. It takes about
 15 minutes, and you can stop whenever you like. Next time, open the same
-folder and say hi; it picks up where you left off.
+folder and say hi. It picks up where you left off.
 
-Everything stays on your computer, in this folder. Nothing is sent anywhere
-except the searches you ask for. Don't delete this folder: it is your search.
+Your resume, applications and notes stay in this folder on your computer.
+What goes out is the job searches it runs and your chat with Claude.
+Don't delete this folder. It holds your whole search.
