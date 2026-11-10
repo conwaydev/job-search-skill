@@ -1,15 +1,17 @@
 # Job Search
 
-A job-search assistant that lives in a folder on your computer and runs in the Claude desktop app. You talk to it in plain English.
+Howdy! Job hunting right now is exhausting. A lot of what's posted isn't real, every application wants its own resume, and it's easy to lose track of who wrote back. When I started my own search, I built a Claude skill to do that work with me. So far it's tracked about 1,200 jobs and a little over a hundred applications for me, and about a quarter of the postings it rechecked had already closed.
 
-It handles the searching, the checking and the bookkeeping. You decide what to apply for, and you send every application yourself. It won't put a number in an application unless you've confirmed it. Hiring managers are buried in machine-written applications right now, and this is built to help you send fewer, better ones that are yours.
+This is that skill, cleaned up so anyone can use it. It lives in a folder on your computer, runs in the Claude desktop app, and you talk to it in plain English.
+
+It handles the searching, the checking and the bookkeeping. You decide what to apply for, and you send every application yourself. It won't put a number in an application unless you've confirmed it. Hiring managers are buried in machine-written applications right now. This is built to help you send fewer, better ones that are actually yours.
 
 **See it work, with a demo video and a setup walkthrough, at [conwaydev.com/job-search](https://conwaydev.com/job-search).**
 
 ## What it does
 
 **Finds jobs and checks they're still open.**
-- It searches LinkedIn, Built In and the careers pages of companies you pick. It reads the job systems many employers post on, including Greenhouse, Lever, Ashby, Workday, SuccessFactors, Phenom and iCIMS.
+- It searches LinkedIn, Built In and the careers pages of companies you pick. It reads the job systems a lot of employers post on, from startups on Greenhouse, Lever and Ashby to big companies on Workday, SuccessFactors, Phenom and iCIMS.
 - It checks each posting is still open before showing it to you, and skips listings that don't name the employer.
 
 **Scores each role against your background.**
@@ -96,4 +98,10 @@ When you get a newer zip, unzip it into Downloads. Don't unzip it over your fold
 
 **New computer?** Copy the folder over. In the copy, delete `.runtime`, `data/browser-profile` and `data/sessions`, then open it and say "set me up". Setup reinstalls what's needed, and you sign in to LinkedIn again.
 
-**Something's broken.** Say so in plain words, such as "the search isn't working". It checks itself and walks you through the fix.
+**Something's broken.** Say so in plain words, like "the search isn't working". It checks itself and walks you through the fix. If it can't sort it out, open an issue here and I'll take a look.
+
+**Is there a version that doesn't need Claude?** Not yet, but I'm building one! It's a standalone version of this skill that doesn't need a download or a Claude account. If you're interested in beta testing, please reach out.
+
+## Say hi
+
+If you have questions, find a bug or land the job, I want to hear about it. Say hi at conway.justin@gmail.com.
