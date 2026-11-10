@@ -136,8 +136,8 @@ Many companies post jobs on their own careers site first, and the skill can chec
 ## 9. tracker: their application tracker
 
 The tracker is one page that shows everything at a glance:
-- how many jobs are at each stage, from found to offer;
-- what changed recently;
+- how many applications reached each stage, and a flow chart of where they went;
+- what changed recently, with notes;
 - applications that have gone quiet;
 - the best open roles.
 
