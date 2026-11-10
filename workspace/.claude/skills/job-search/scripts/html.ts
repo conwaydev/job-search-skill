@@ -7,14 +7,14 @@
 export const esc = (s: unknown) =>
   String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-export function page(title: string, body: string, extraCss = ''): string {
+export function page(title: string, body: string, extraCss = '', extraHead = ''): string {
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
-<style>
+${extraHead}<style>
 :root {
   --bg: #fbfaf8; --surface: #ffffff; --text: #1d1f22; --muted: #62666d; --line: #e4e1dc;
   --accent: #2f5d8a; --accent-soft: #e6eef6; --good: #2e7d4f; --warn: #a3620a; --bad: #a33a3a;

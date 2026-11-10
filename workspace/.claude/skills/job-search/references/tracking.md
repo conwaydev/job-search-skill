@@ -88,10 +88,11 @@ To archive: `scripts/updateStatus.ts <id> archived "posting gone, liveness check
 ## 6. The tracker
 
 `scripts/renderReadout.ts` writes `readouts/pipeline.html` from the database. That page is their Application Tracker. It shows:
-- headline numbers;
-- how far applications get, from found to offer;
-- active applications, with days since the last news, and the quiet ones flagged;
-- recent activity with notes;
+- counts: applied, reached a screen, reached interviews, in process, offers, rejected, waiting;
+- a flow chart of where applications went, from applied through screens and interviews to where each stands now (hover a ribbon to see the companies);
+- applications that have gone quiet;
+- recent changes, each with the note saved on that status change, so notes are worth writing well;
+- applications per week, and a table of every application with how far it got and where it stands;
 - the best open roles they haven't applied to.
 
 **The local file is refreshed after every status change. The published copy is refreshed less often**, so they don't get an approval prompt for every "I applied". Publish only when:
