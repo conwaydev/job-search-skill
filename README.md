@@ -1,6 +1,8 @@
 # Job Search
 
-Howdy! When I started looking for my next job, I built a Claude skill to handle the parts of a search that wear you down. This is that skill, cleaned up so anyone can use it. It lives in a folder on your computer, runs in the Claude desktop app, and you talk to it in plain English.
+Howdy! Job hunting right now is exhausting. A lot of what's posted isn't real, every application wants its own resume, and it's easy to lose track of who wrote back. When I started my own search, I built a Claude skill to do that work with me. So far it's tracked about 1,200 jobs and a little over a hundred applications for me, and about a quarter of the postings it rechecked had already closed.
+
+This is that skill, cleaned up so anyone can use it. It lives in a folder on your computer, runs in the Claude desktop app, and you talk to it in plain English.
 
 It handles the searching, the checking and the bookkeeping. You decide what to apply for, and you send every application yourself. It won't put a number in an application unless you've confirmed it. Hiring managers are buried in machine-written applications right now. This is built to help you send fewer, better ones that are actually yours.
 
