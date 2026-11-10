@@ -1,5 +1,5 @@
 import { DatabaseSync } from 'node:sqlite';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 
@@ -66,8 +66,9 @@ export function isAggregatorUrl(url: string): boolean {
 export function getDb(): DatabaseSync {
   if (db) return db;
   ensureDir(dataDir);
-  const isNew = !existsSync(dbPath);
   db = new DatabaseSync(dbPath);
+  // Check for the table, not the file: an empty or half-made file has no schema.
+  const isNew = !db.prepare("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'jobs'").get();
   if (isNew) db.exec(readFileSync(schemaPath, 'utf8'));
   // Always migrate: schema.sql predates some columns, so a brand-new database
   // needs them added just like an old one does.

@@ -2,8 +2,8 @@
 name: job-search
 description: >-
   Runs the person's job search from this folder. Finds openings on LinkedIn,
-  Built In and company career sites (Greenhouse, Lever, Ashby, Workday), scores
-  each against their resume, checks postings are still live, tailors a resume
+  Built In and company career sites (Greenhouse, Lever, Ashby, Workday,
+  SuccessFactors, Phenom, iCIMS), scores each against their resume, checks postings are still live, tailors a resume
   and cover letter from their own verified facts and voice, tracks every
   application in an Application Tracker page, writes interview prep, and
   learns from their corrections. Use it for anything about
@@ -150,6 +150,7 @@ scripts/scanLinkedIn.ts --days 14         # signed-in scan (falls back to guest)
 scripts/scanLinkedIn.ts --guest --days 14 # what a signed-out search sees
 scripts/scanBuiltIn.ts                    # Built In, remote plus their cities
 scripts/fetchPosting.ts "<url>" --save data/tmp/job.json  # read one posting (Greenhouse, Lever, Ashby, Workday, page data)
+scripts/checkBoard.ts detect "<url>"     # which job system a company uses, and what to save
 scripts/checkLiveness.ts --ids 12,15      # are these still open?
 scripts/writeScore.ts --file data/tmp/score.json
 scripts/updateStatus.ts <id> applied "note"

@@ -184,6 +184,10 @@ async function checkGeneric(url: URL): Promise<Partial<Result>> {
   if (looksLikeBoardIndex(final, url)) {
     return { verdict: 'dead', detail: 'redirected to board index', finalUrl };
   }
+  // SuccessFactors sends a closed job to its error page with a 200.
+  if (final.hostname === url.hostname && /^\/errorpage\/?$/i.test(final.pathname)) {
+    return { verdict: 'dead', detail: 'redirected to the site error page', finalUrl };
+  }
   const text = textOf(await res.text());
   const phrase = REMOVAL_PHRASES.find((p) => text.includes(p));
   if (phrase) return { verdict: 'removed', detail: `page says "${phrase}"`, finalUrl };
@@ -263,6 +267,8 @@ async function checkOne(job: { id: number; company: string; title: string; statu
       const wd = await checkWorkday(url);
       if (wd.verdict) return { ...base, ...wd } as Result;
     }
+    // iCIMS pages are a shell; only the inner page says 410 or "no longer open".
+    if (/\.icims\.com$/.test(host)) url.searchParams.set('in_iframe', '1');
     const ghJid = url.searchParams.get('gh_jid');
     if (ghJid) {
       const embedded = await checkEmbeddedGreenhouse(job.company, url, ghJid);

@@ -29,6 +29,9 @@ try {
 } catch {
   die({ error: 'bad_url', url: raw });
 }
+// iCIMS job pages are a shell around an iframe; the posting itself (with its
+// job data) only comes back when asked for the inner page.
+if (/\.icims\.com$/.test(url!.hostname)) url!.searchParams.set('in_iframe', '1');
 
 interface Posting {
   found: boolean;
