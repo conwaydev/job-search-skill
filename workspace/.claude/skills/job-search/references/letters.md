@@ -18,7 +18,8 @@ A letter earns its place only if it couldn't have been sent to any other company
 Every letter is built around **one real story from their working life.** It's a specific moment that shows how they work: a team that pulled something off, a problem they untangled, or a customer they turned around.
 
 - **Never invent one.** If no story fits this job, ask before drafting: "Is there a moment from your work that shows <theme>? A few sentences is plenty, I'll shape it." Then wait for their reply.
-- Keep their stories in `applications/<slug>/notes.md`. Offer to save a good one to `profile/my-voice.md` under `## Stories` so it can be considered (never copied) for future letters.
+- Check `profile/my-voice.md` under `## Stories` first. Ask only when none there fits this job.
+- Save every new story they tell you under `## Stories`, in their words, with the kinds of roles it fits, and tell them in one line. Setup doesn't collect stories, so this is where they build up. Future letters can draw on them, never copy them.
 - If the story is about leading people, the team does the work and they make room for it. Credit sits in the same sentence as the result.
 
 ## Shape

@@ -33,9 +33,9 @@ The script does four things:
 3. Installs the skill's one dependency, Playwright.
 4. Adds Node to the PATH for this folder in `.claude/settings.local.json`.
 
-When it finishes, run `node --version` again.
-- **If it works,** go to step 4.
-- **If it still isn't found,** the new PATH only applies to new sessions. Tell them: "Almost there. Please start a new session in the same JobSearch folder (the + or New session button) and say 'continue'. Everything so far is saved." Onboarding picks up where it left off.
+When it finishes, use the Node it installed for the rest of this session: `.runtime/node/bin/node` on Mac, `.runtime/node/node.exe` on Windows. Put that path in place of `node` in every command. **Don't ask them to restart anything.** The PATH line the script wrote takes effect by itself in their next session.
+
+Check it works with `.runtime/node/bin/node --version` (or `.runtime/node/node.exe --version`), then go to step 4.
 
 If the script fails, read its last line to them in plain words. The usual causes are no internet connection, or the folder being somewhere they can't write, such as a synced or read-only drive. Moving `JobSearch` into their home folder fixes the second.
 
@@ -49,7 +49,7 @@ npm --prefix .claude/skills/job-search ci --no-audit --no-fund
 
 ## 4. A browser
 
-Run `node --no-warnings .claude/skills/job-search/scripts/doctor.ts`.
+Run `node --no-warnings .claude/skills/job-search/scripts/doctor.ts`, using the folder's own Node if you installed it in step 2.
 
 **If the Browser line fails:**
 - **Best:** they install Google Chrome from google.com/chrome. LinkedIn also treats real Chrome better than a test browser.
@@ -63,7 +63,7 @@ Run `doctor.ts` once more and tell them it's ready in one line, with no checklis
 
 When they have a newer `JobSearch` zip:
 1. Ask them to double-click the zip so it unzips, usually into Downloads. **Don't** unzip it over their current folder.
-2. Find the new folder. Ask where it landed if it isn't obvious, then run its update script from their current JobSearch folder:
+2. Find the new folder yourself before asking. It's usually `Downloads/JobSearch` (or `Downloads/JobSearch 2`, or `Downloads/JobSearch-v<version>/JobSearch`) in their home folder. List the Downloads folder to find it. Ask only if it isn't there. Then run its update script from their current JobSearch folder:
    ```
    node "<path to the new JobSearch folder>/.claude/skills/job-search/setup/update.mjs"
    ```

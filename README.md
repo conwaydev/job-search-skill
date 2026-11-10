@@ -30,7 +30,7 @@ A job-search assistant that lives in a folder on your computer and runs in the C
 
 - A Mac or a Windows PC.
 - The Claude desktop app ([claude.ai/download](https://claude.ai/download)) on a paid plan, which includes the **Code** tab.
-- About 20 minutes for setup. You can stop and pick up later.
+- About 15 minutes for setup. You can stop and pick up later.
 
 You don't need to know anything technical. You won't need a terminal, and nothing gets installed anywhere except inside the folder.
 
@@ -44,16 +44,16 @@ The folder also has a `START HERE.txt` with these same three steps.
 
 ## What "set me up" does
 
-Claude walks you through eight short parts, one question at a time. Any part can be skipped.
+Claude walks you through eight short parts. Wherever it can, it drafts things from your resume and you just correct them. Any part can be skipped.
 
 1. **Gets the computer ready.** It downloads Node, the free tool the scripts run on, into the folder, and checks there's a browser. This needs no admin password.
-2. **Your resume.** Drop in a PDF or Word file. It turns the resume into your baseline and shows it back so you can check it.
-3. **What you're looking for.** Titles, level, places, remote, pay floor, and dealbreakers.
+2. **Your resume.** Drop in a PDF or Word file, or just say where it is ("it's in Downloads"). It turns the resume into your baseline and shows it back so you can check it.
+3. **What you're looking for.** It drafts titles, level and places from your resume for you to adjust, then asks your pay floor and any dealbreakers.
 4. **Your numbers.** It shows every figure on your resume in one list and asks which, if any, you couldn't back up in an interview. Only those get a follow-up. Only confirmed facts are used in applications.
-5. **How you write.** Paste something you wrote, and tell it two or three stories you're proud of.
+5. **How you write.** Paste one thing you wrote, like an email or a post. Stories for cover letters come later, when the first letter needs one.
 6. **LinkedIn, optional.** A browser window opens and you sign in yourself. It never sees your password. You can skip this; it still searches LinkedIn signed out.
-7. **Companies to watch.** Pick from a list of about 100 verified company boards in eight industries, or name your own.
-8. **Your tracker and a first search.** It runs a first search and shows you the best matches.
+7. **Companies to watch.** It suggests 15 to 20 companies that fit you, from about 100 it knows; drop any, or add your own.
+8. **Your tracker and a first search.** It runs a first search, scores the five best, and shows you the matches.
 
 Close the app any time. When you open the folder again and say hi, it picks up where you left off.
 

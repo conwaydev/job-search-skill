@@ -9,6 +9,10 @@
       "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File .claude/skills/job-search/setup/install-node.ps1)",
       "Bash(npm --prefix .claude/skills/job-search ci --no-audit --no-fund)",
       "Bash(npm --prefix .claude/skills/job-search exec playwright install chromium)",
+      "Bash(.runtime/node/bin/node --version)",
+      "Bash(.runtime/node/bin/node --no-warnings .claude/skills/job-search/scripts/*)",
+      "Bash(.runtime/node/node.exe --version)",
+      "Bash(.runtime/node/node.exe --no-warnings .claude/skills/job-search/scripts/*)",
       "WebSearch",
       "WebFetch"
     ],

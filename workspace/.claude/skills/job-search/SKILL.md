@@ -43,6 +43,8 @@ node --no-warnings .claude/skills/job-search/scripts/<name>.ts
 
 `--no-warnings` hides a harmless notice from Node's built-in SQLite.
 
+If plain `node` isn't on the PATH yet, use the Node installed inside the folder: `.runtime/node/bin/node` on Mac, `.runtime/node/node.exe` on Windows. Both forms are pre-approved, so there are no permission prompts either way.
+
 **Passing JSON or long text to a script:**
 1. Write it to a file under `data/tmp/` with the Write tool.
 2. Pass that file with `--file <path>`. This works the same on Mac and Windows, where the shell may be PowerShell, which has no heredocs.
@@ -51,11 +53,8 @@ node --no-warnings .claude/skills/job-search/scripts/<name>.ts
 
 ## At the start of every session
 
-1. **Check setup.** Read `profile/onboarding-state.json`.
-   - If it is missing, or any step is not `done` or `skipped`, follow [onboarding.md](references/onboarding.md). Greet them and offer to pick up where they left off, and say which step that is.
-   - If Node itself fails, follow [setup.md](references/setup.md) first.
-2. **Check the computer.** Run `scripts/doctor.ts --quiet`. It prints nothing when all is well. If it reports a problem, fix it before anything else.
-3. **Read their rules.** Read `profile/learned-rules.md` before you score, search or write anything. It holds their dated corrections, and those beat any default in this skill.
+1. **Check the computer and setup.** The workspace `CLAUDE.md` runs `scripts/doctor.ts --quiet` and reads `profile/onboarding-state.json` on the first message. If onboarding isn't finished, follow [onboarding.md](references/onboarding.md) and offer to pick up where they left off. If Node itself fails, follow [setup.md](references/setup.md).
+2. **Read their rules.** Read `profile/learned-rules.md` before you score, search or write anything. It holds their dated corrections, and those beat any default in this skill.
 
 Onboarding does not have to be finished before you help. A baseline resume alone is enough to score a job they paste in. Do what they asked, then mention the next unfinished step in one line.
 
@@ -123,8 +122,8 @@ Each rule exists because breaking it produced a wrong answer. Do not soften them
 | pastes a job link or description | Add it, find the employer's posting, score it | [discovery.md](references/discovery.md), [scoring.md](references/scoring.md) |
 | "how does this one look", "tell me about #42" | `scripts/query.ts job 42`, then summarize | [scoring.md](references/scoring.md) |
 | "tailor my resume", "write a cover letter", "apply to #42" | Research, then build both from scratch | [tailoring.md](references/tailoring.md), [letters.md](references/letters.md), [writing.md](references/writing.md) |
-| "mark it applied", "I heard back", "I got an interview" | Update the status with a note, refresh and republish the tracker | [tracking.md](references/tracking.md) |
-| "show my tracker", "how's my search going" | Refresh the tracker and give them its link | [tracking.md](references/tracking.md) |
+| "mark it applied", "I heard back", "I got an interview" | Update the status with a note, refresh the local tracker | [tracking.md](references/tracking.md) |
+| "show my tracker", "how's my search going" | Refresh, publish, and give them the link | [tracking.md](references/tracking.md) |
 | "help me prep", "I have an interview with…", "how did it go" debriefs | Prep notes published as a doc or artifact, then a debrief | [interview-prep.md](references/interview-prep.md) |
 | "what's still open", "pipeline", "who ghosted me" | Snapshot, liveness check, readout | [tracking.md](references/tracking.md) |
 | "that's wrong", "don't do that", "I hate this line" | Fix it, then record the rule | [learning.md](references/learning.md) |
@@ -138,6 +137,7 @@ Background research on how applicant systems and hiring managers actually read r
 ```
 scripts/doctor.ts                         # is this computer ready?
 scripts/onboardingState.ts [set <step> <status>]  # setup progress
+scripts/importResume.ts "<path>"          # copy their resume into profile/ (prints Word text)
 scripts/extractDocx.ts <file.docx>        # text of a Word resume
 scripts/seedMetrics.ts                    # resume numbers into verified-metrics.md as unverified
 scripts/metrics.ts list | set <n|all> <status> [--use] [--source] [--except]  # bulk-update claims
