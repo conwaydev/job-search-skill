@@ -71,7 +71,15 @@ export function loadProfile(): SearchProfile {
   }
   const p = JSON.parse(readFileSync(profileFiles.searchProfile, 'utf8')) as SearchProfile;
   p.targetTitles ??= [];
-  p.locations ??= [];
+  // Accept "Denver, CO" as well as {city, region}: an easy slip when the file
+  // is written by hand, and one that otherwise crashes every scan.
+  p.locations = (p.locations ?? [])
+    .map((place) => {
+      if (typeof place !== 'string') return place;
+      const [city, region] = (place as string).split(',').map((s) => s.trim());
+      return { city, ...(region ? { region } : {}) };
+    })
+    .filter((place) => typeof place?.city === 'string' && place.city !== '');
   p.remote ??= true;
   p.country ??= 'United States';
   cached = p;

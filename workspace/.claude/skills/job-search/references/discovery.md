@@ -92,6 +92,7 @@ Searches, places and remote come from `search-profile.json` (`targetTitles`, `se
    - A `gh_jid=` in a link means the site runs on Greenhouse underneath.
 3. Confirm it answers before saving it: `scripts/checkBoard.ts greenhouse <slug>`, `... lever <slug>`, `... ashby <slug>`, or `... workday <boardUrl>`.
 4. Add it to `sources.json` and tell them how many open roles the board has now.
+5. **If it runs on something else** (SuccessFactors, iCIMS, Taleo, Phenom, a custom site), put `{company, url}` under `careerPages`. Those can't be pulled automatically, and `ingest.ts` says so with a "no adapter" note. On each search, check them by hand instead: one `WebSearch` per company for its open roles matching their target titles, then read any hits and run them through liveness like any other find. Tell them plainly that these are checked by search, not pulled directly.
 
 **To look at one company directly,** use `checkBoard.ts` and read every title yourself. Don't filter by keyword. Titles vary too much, and "Manager, Operations" will slip past a filter looking for "operations manager".
 
@@ -104,7 +105,7 @@ Use `WebSearch` only after the scans and boards, and expect most results to be d
 
 ## 6. A job they paste in
 
-- **A link:** try the employer's board API first (section 7), then `WebFetch`. If the page is blocked:
+- **A link:** run `scripts/fetchPosting.ts "<url>" --save data/tmp/job.json` first. It reads Greenhouse, Lever, Ashby and Workday postings through their own systems, and any page with embedded job data, and saves a file ready for `addJob.ts`. Its result includes pay, schedule and posting date when the system has them. Use it for jobs you find too, not only pasted ones; it's faster and cheaper than WebFetch or a helper agent. If it says `found: false`, use `WebFetch`. If the page is blocked:
   1. use a browser (`openContext` in `scripts/browserSession.ts`; a visible window gets past most bot walls)
   2. if that fails too, ask them to paste the text
 - **Indeed:** never fetch. Ask for the text.
@@ -138,7 +139,7 @@ Try these in order and stop at the first that works:
    - Check the report first, then run it with `--write --threshold 0.95`.
    - A `no_title_match` is not proof the job closed. The guessed board may belong to a different company with a similar name, so check the board's size and titles.
 2. **A targeted search,** `<company> careers "<exact title>"`, then `scripts/setCanonical.ts <id> "<url>"`. It refuses aggregator links.
-3. **Workday:** the job's data lives at `https://<tenant>.wdN.myworkdayjobs.com/wday/cxs/<tenant>/<site>/job/<rest-of-path>`. It confirms the job is live and gives the full text.
+3. **Workday:** run `scripts/fetchPosting.ts` on the `myworkdayjobs.com` link. It confirms the job is live and gives the full text.
 
 To list what still needs this, run `scripts/query.ts needs-canonical`. Jobs they have applied to come first.
 

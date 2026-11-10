@@ -123,11 +123,12 @@ Never ask for their password, and never read anything in `data/sessions/` or `da
 
 Many companies post jobs on their own careers site first, and the skill can check those sites directly.
 
-1. **Propose a list.** Read `references/company-boards.json`. Pick 15 to 20 companies that fit their industries, field and locations, and show them as one short list grouped by industry. Ask: "I'll watch these companies' job pages. Want to drop any, or add companies you'd love to work at?"
-2. **For each company they add,** find its jobs board.
-   - Run `scripts/checkBoard.ts` on a likely slug.
-   - Or search the web for "<company> careers" and work out which system hosts it (Greenhouse, Lever, Ashby or Workday).
-   - If the board isn't one of those, add the careers page URL under `careerPages`.
+1. **Propose a list.** Read `references/company-boards.json`. Pick 15 to 20 companies that fit their industries, field and locations.
+   - The list leans toward tech and big national brands. If fewer than about ten fit their field, fill the gap: search the web for the larger employers in their field in their cities (for example "largest 3PL companies Denver"), and keep the ones whose boards you can confirm (step 2). Don't pad the list with poor fits.
+   - Show them as one short list grouped by industry. Ask: "I'll watch these companies' job pages. Want to drop any, or add companies you'd love to work at?"
+2. **For each company they add,** find its jobs board, following "When they name a company to add" in [discovery.md](discovery.md).
+   - Workday sites are often not at `myworkdayjobs.com` on the surface. Look where the job links on the careers page point.
+   - If the board runs on something the skill can't pull, it goes under `careerPages`, and it gets checked by web search on each run. Say that plainly. Don't tell them it's watched directly.
 3. Write `profile/sources.json`, starting from `templates/profile/sources.json`. Greenhouse, Lever and Ashby entries are slugs. Workday entries are `{company, url}`.
 4. Tell them how many companies are being watched, and that they can add more any time by naming a company.
 
