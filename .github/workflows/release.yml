@@ -1,0 +1,60 @@
+# Publishes JobSearch.zip as a GitHub release whenever main has a skill version
+# that hasn't been released yet. Bump the version in
+# workspace/.claude/skills/job-search/package.json (and package-lock.json) in
+# the same PR as the change, and merging it ships it. The download link on
+# conwaydev.com/job-search points at releases/latest, so it follows along.
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'workspace/**'
+      - 'tools/**'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Read the skill version
+        id: version
+        run: echo "tag=v$(node -p "require('./workspace/.claude/skills/job-search/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if this version is already released
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "${{ steps.version.outputs.tag }} is already released. Bump the version to ship this change." >> "$GITHUB_STEP_SUMMARY"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build JobSearch.zip
+        if: steps.check.outputs.skip != 'true'
+        run: node tools/package.mjs
+
+      - name: Publish the release
+        if: steps.check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" dist/JobSearch.zip \
+            --title "${{ steps.version.outputs.tag }}" \
+            --generate-notes \
+            --latest
