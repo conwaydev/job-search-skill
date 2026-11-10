@@ -65,4 +65,4 @@ The letterhead (name and contact details) comes from the baseline automatically.
 5. Is there no negative, no percentage, no lifted phrase and no AI tell? Run `scripts/auditProse.ts applications/<slug>/cover-letter.json`.
 6. Does the close say plainly what they want?
 
-Hand it over as the PDF (see [tailoring.md](tailoring.md)) and paste the plain text in the chat too, so they can read it right away. When they react, fix it, and record what they disliked in `learned-rules.md` under `## Writing`.
+Hand it over as the PDF, with the Word copy beside it (see [tailoring.md](tailoring.md)) and paste the plain text in the chat too, so they can read it right away. When they react, fix it, and record what they disliked in `learned-rules.md` under `## Writing`.

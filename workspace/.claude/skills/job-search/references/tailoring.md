@@ -6,7 +6,7 @@ Read this for "tailor my resume", "apply to #42", or "get me ready to apply". Ev
 1. The rules that don't bend
 2. Steps
 3. Building the resume
-4. Making the PDFs
+4. Making the PDFs and Word files
 5. The application form
 
 ## 1. The rules that don't bend
@@ -50,7 +50,7 @@ Read this for "tailor my resume", "apply to #42", or "get me ready to apply". Ev
 8. **Build the resume** (section 3) and **the letter** ([letters.md](letters.md)).
 9. **Check both** with `scripts/auditProse.ts applications/<slug>/resume.json` and the same on `cover-letter.json`, then the checklist in [writing.md](writing.md).
 10. **Save the record:** `scripts/writeDraft.ts <id> resume --file applications/<slug>/resume.json`, and the same with `cover_letter`.
-11. **Make the PDFs** (section 4) and hand them over.
+11. **Make the PDFs and Word files** (section 4) and hand them over.
 
 `<slug>` is the company and role in lowercase with hyphens, such as `acme-operations-manager`. Use the same one for the folder and everything in it.
 
@@ -84,7 +84,7 @@ Write `applications/<slug>/resume.json` in the shape of `templates/resume.schema
 - Use plain verbs, credit the team where it's due, and include nothing negative ([writing.md](writing.md)).
 - Don't repeat in a bullet a tool that is already in Skills. Say what was achieved with it.
 
-## 4. Making the PDFs
+## 4. Making the PDFs and Word files
 
 ```
 scripts/renderDocument.ts <slug>
@@ -94,8 +94,14 @@ This reads `applications/<slug>/resume.json` and `cover-letter.json` and writes 
 - `<Name> - <Role>.pdf`
 - `<Name> - <Role> - Cover Letter.pdf`
 - `<Name> - <Role> - Cover Letter and Resume.pdf` (both in one file, letter first)
+- `<Name> - <Role>.docx` and `<Name> - <Role> - Cover Letter.docx`, Word copies of the same two documents
 
 Give them the folder path. Ask them to open the PDF and read it once before sending.
+
+The Word files are for when they want to change how it looks, such as the font or size, or make a last edit by hand. They open in Word, Google Docs or Pages. Every part of the document uses a named style (Title, Heading 1, List Bullet and so on), so changing a style's font in Word changes it everywhere. After editing, they save it as a PDF from Word and send that.
+- Wording changes should still go through you, in `resume.json` or `cover-letter.json`, so the next render and the tracker stay right.
+- Running `renderDocument.ts` again overwrites both Word files. If they've edited one by hand, say so and ask before re-rendering, or have them rename their copy first.
+- If they want a different font every time, record it in `learned-rules.md` under `## Writing`, and remind them to set it in the Word copy. The PDF always uses Arial.
 
 ## 5. The application form
 

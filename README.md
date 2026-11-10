@@ -20,7 +20,7 @@ It handles the searching, the checking and the bookkeeping. You decide what to a
 - Each one is written from scratch for that role.
 - Numbers come only from a list of facts you've confirmed.
 - Letters are built on stories you've told it, in your own voice, and checked for phrasing that sounds machine-made.
-- You get PDFs ready to send.
+- You get PDFs ready to send, plus Word copies if you want to change the font or tweak the wording.
 
 **Tracks every application.**
 - Tell it "I applied", "I heard back" or "I have an interview Tuesday" and it updates the record.
