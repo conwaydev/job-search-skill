@@ -1,6 +1,6 @@
 # Job Search
 
-Howdy! Job hunting right now is exhausting. A lot of what's posted isn't real, every application wants its own resume, and it's easy to lose track of who wrote back. When I started my own search, I built a Claude skill to do that work with me. So far it's tracked about 1,200 jobs and a little over a hundred applications for me, and about a quarter of the postings it rechecked had already closed.
+Howdy! Job hunting right now is exhausting. A lot of what's posted isn't real, every application wants its own resume, and it's easy to lose track of who wrote back. When I started my own search, I built a Claude skill to do that work with me.
 
 This is that skill, cleaned up so anyone can use it. It lives in a folder on your computer, runs in the Claude desktop app, and you talk to it in plain English.
 
