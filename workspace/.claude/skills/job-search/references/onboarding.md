@@ -115,7 +115,7 @@ Explain in one short paragraph:
 > LinkedIn has the most job listings. I can search it without signing in, but signed in I see more. If you want that, I'll open a browser window and you sign in yourself. I never see your password. LinkedIn's rules don't allow automated searching, so there's a small chance it asks you to verify your account. I keep the searches slow and occasional to avoid that. You can skip this and still get plenty of jobs from company sites.
 
 - **If they want it:** run `scripts/login.ts linkedin --wait 300`. Tell them a window will open, and that they should sign in and then come back here. When it returns, confirm with `scripts/login.ts --status`.
-- **If they don't:** mark it skipped. Searches use the signed-out view.
+- **If they don't:** mark it skipped. LinkedIn is still searched every time, through the signed-out view (`--guest`). Skipping sign-in never means skipping LinkedIn.
 
 Never ask for their password, and never read anything in `data/sessions/` or `data/browser-profile/`.
 
@@ -153,7 +153,7 @@ It's empty now, and that's fine. It fills up after the first search.
 Tell them this takes a few minutes. Then:
 
 1. Run `scripts/ingest.ts` to check the company boards.
-2. Run the LinkedIn scan (signed in, or `--guest` if they skipped sign-in) and `scripts/scanBuiltIn.ts`, per [discovery.md](discovery.md).
+2. Run the LinkedIn scan and `scripts/scanBuiltIn.ts`, per [discovery.md](discovery.md). Always run LinkedIn: signed in if they signed in, otherwise with `--guest`.
 3. Check liveness, then score the **five** most promising new roles, following [scoring.md](scoring.md). Ask **at most three** gap questions, all in one message, about the things that would move scores most. The rest can come up later, one job at a time.
 4. Refresh the tracker (step 9).
 5. Show the top few in plain words: role, company, score, and one line on why. Ask which, if any, they'd like a tailored resume and letter for. Tailoring follows [tailoring.md](tailoring.md).
