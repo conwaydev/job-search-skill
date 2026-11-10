@@ -53,7 +53,7 @@ Run `node --no-warnings .claude/skills/job-search/scripts/doctor.ts`, using the 
 
 **If the Browser line fails:**
 - **Best:** they install Google Chrome from google.com/chrome. LinkedIn also treats real Chrome better than a test browser.
-- **Or:** run `npm --prefix .claude/skills/job-search exec playwright install chromium`. That's a download of about 150 MB.
+- **Or:** run `scripts/installBrowser.ts` (with the folder's Node if that's the one in use). That's a download of about 150 MB.
 
 ## 5. Confirm
 
