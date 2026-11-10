@@ -149,6 +149,7 @@ scripts/ingest.ts                         # pull every company board in sources.
 scripts/scanLinkedIn.ts --days 14         # signed-in scan (falls back to guest)
 scripts/scanLinkedIn.ts --guest --days 14 # what a signed-out search sees
 scripts/scanBuiltIn.ts                    # Built In, remote plus their cities
+scripts/fetchPosting.ts "<url>" --save data/tmp/job.json  # read one posting (Greenhouse, Lever, Ashby, Workday, page data)
 scripts/checkLiveness.ts --ids 12,15      # are these still open?
 scripts/writeScore.ts --file data/tmp/score.json
 scripts/updateStatus.ts <id> applied "note"

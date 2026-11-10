@@ -13,6 +13,7 @@
       "Bash(.runtime/node/bin/node --no-warnings .claude/skills/job-search/scripts/*)",
       "Bash(.runtime/node/node.exe --version)",
       "Bash(.runtime/node/node.exe --no-warnings .claude/skills/job-search/scripts/*)",
+      "Skill(job-search)",
       "WebSearch",
       "WebFetch"
     ],
