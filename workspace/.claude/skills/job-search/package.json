@@ -1,6 +1,6 @@
 {
   "name": "job-search-skill",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "description": "Scripts behind the job-search skill. Setup runs `npm ci` here.",
   "type": "module",
