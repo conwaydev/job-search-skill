@@ -59,15 +59,20 @@ Their baseline is the resume every score and every tailored version starts from.
 
 ## 4. search: what they're looking for
 
-Draft the whole profile from their resume, show it once, then ask the two things a resume can't tell you. That's about three messages.
+Draft the whole profile from their resume, show it once along with the titles question, then ask the two things a resume can't tell you. That's about three messages.
 
 1. **Draft it.** Start from `templates/profile/search-profile.json` and fill in what the resume implies:
-   - `targetTitles`: three to five titles, covering their current level, the next step up, and common other names for the same job;
+   - `targetTitles`: three to five titles at their current level, plus common other names for the same job. Don't add a step up (a director becoming VP, a manager becoming director). Only they know whether they're reaching up, so their answer in step 2 decides it;
    - `titleFilter.levels`, `excludeKeywords` (too junior, too senior), `domainKeywords`, and `wrongFunctionKeywords` (functions that share their titles but aren't their work). Leave a list empty when unsure. Empty means the filter lets everything through;
    - `locations`: their current city. Leave `remote` as true;
    - `industries`: the ones they've worked in;
    - `positioning`: one or two sentences on what they do best.
-2. **Show it in plain words**, not JSON, as a short list: titles, level, field, where, industries. Ask: "Here's what I'd search for, based on your resume. What would you change? Different titles, other cities, remote or not, industries to add or avoid?"
+2. **Show it in plain words**, not JSON, as a short list: titles, level, field, where, industries. Then ask about titles directly, because they're what decide which jobs show up:
+   - "What other job titles do you usually search for?"
+   - "Any titles you'd skip, like ones that are too senior or too junior for you?"
+   - "Anything else to change? Other cities, remote or not, industries to add or avoid?"
+
+   Add the titles they name to `targetTitles` and their levels to `titleFilter.levels`. Put the ones they'd skip in `titleFilter.excludeKeywords`, using the short forms too ("vp" and "vice president", "sr director" and "senior director"). Don't run any search until this is saved.
 3. **Ask what the resume can't say**, in one message:
    - the lowest base salary they'd consider (`minSalaryUSD`; if they'd rather not say, leave it null and pay isn't judged);
    - any dealbreakers or must-haves, such as heavy travel, agencies, or company size (`dealbreakers`, `mustHave`). "None" is a fine answer.
