@@ -12,6 +12,7 @@ Before replying to their first message:
    - **If `node` isn't found, or the script won't run** (Node too old), try the Node that setup installs inside this folder: `.runtime/node/bin/node` on Mac, `.runtime/node/node.exe` on Windows. If that works, use that path in place of `node` for every command this session.
    - **If neither works,** follow `.claude/skills/job-search/references/setup.md`.
    - **If it reports a problem,** fix it quietly, then tell them in one line what you fixed.
+   - Also run `node --no-warnings .claude/skills/job-search/scripts/update.ts check --quiet`. It checks for a newer version at most once a week and prints nothing otherwise. If it prints one, end your reply with one line like: "There's a newer version of the job search skill. Say "update" whenever you want it." Never update without them asking.
 3. Then:
    - **If an onboarding step isn't finished:** welcome them back and offer to continue at that step, naming it. If they asked for something else, do that first.
    - **Otherwise:** just answer them.

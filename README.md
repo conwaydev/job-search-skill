@@ -41,7 +41,7 @@ Your resume, your search, every application and every note stay in the `JobSearc
 
 ## Updating
 
-Download the newest zip and unzip it into Downloads, not over your folder. Open your existing `JobSearch` folder in Claude and say "update the job search skill". It swaps in the new version and leaves your data alone.
+Say "update" in your `JobSearch` folder. It downloads the newest version and swaps it in, and your jobs, profile and applications stay put. When there's a new version, it lets you know, about once a week at most.
 
 ## FAQ
 
