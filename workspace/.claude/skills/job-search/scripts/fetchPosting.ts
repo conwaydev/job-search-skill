@@ -129,6 +129,30 @@ async function ashby(): Promise<Posting | null> {
   };
 }
 
+async function workable(): Promise<Posting | null> {
+  // apply.workable.com/<company>/j/<code>/  or  /<company>/jobs/view/<code>
+  if (host !== 'apply.workable.com' || parts.length < 3) return null;
+  const slug = parts[0];
+  const code = parts[parts.length - 1].replace(/\.md$/, '');
+  const res = await fetch(`https://apply.workable.com/api/v2/accounts/${slug}/jobs/${code}`, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(20000) });
+  if (res.status === 404) {
+    return { found: false, via: 'workable', hint: `Not on the live board: it has probably closed, or the link is old. Run checkBoard.ts workable ${slug} to see what's open now.` };
+  }
+  if (!res.ok) throw new Error(`HTTP ${res.status} from apply.workable.com`);
+  const d = (await res.json()) as any;
+  const where = [d.location?.city, d.location?.region].filter(Boolean).join(', ');
+  return {
+    found: true,
+    via: 'workable',
+    title: d.title,
+    location: [where, d.workplace].filter(Boolean).join(', '),
+    descriptionText: text([d.description, d.requirements, d.benefits].filter(Boolean).join('\n')),
+    employmentType: d.type,
+    datePosted: d.published?.slice(0, 10),
+    canonicalUrl: `https://apply.workable.com/${slug}/j/${d.shortcode ?? code}/`,
+  };
+}
+
 async function workday(): Promise<Posting | null> {
   if (!/myworkdayjobs\.com$/.test(host)) return null;
   // /<site>/job/<location>/<slug>_<id>  or  /<locale>/<site>/details/<slug>_<id>
@@ -182,7 +206,7 @@ async function embedded(): Promise<Posting> {
       canonicalUrl: j.url ?? url!.href,
     };
   }
-  return { found: false, hint: 'No job data in the page. Use WebFetch, or ask them to paste the text.' };
+  return { found: false, hint: 'No job data in the page. Read it with WebFetch (or a web-fetch helper agent if WebFetch is not available), or ask them to paste the text.' };
 }
 
 async function main() {
@@ -191,7 +215,7 @@ async function main() {
     const id = url!.pathname.match(/(\d{6,})/)?.[1] ?? url!.searchParams.get('currentJobId');
     die({ error: 'linkedin', hint: `Use scanLinkedIn.ts --fetch ${id ?? '<job id>'} instead.` });
   }
-  const p = (await greenhouse()) ?? (await lever()) ?? (await ashby()) ?? (await workday()) ?? (await embedded());
+  const p = (await greenhouse()) ?? (await lever()) ?? (await ashby()) ?? (await workable()) ?? (await workday()) ?? (await embedded());
   if (p.found && saveAt) {
     const file = path.resolve(workspaceDir, saveAt);
     ensureDir(path.dirname(file));
@@ -211,4 +235,5 @@ async function main() {
   out(p);
 }
 
-main().catch((e) => die({ error: 'fetch_failed', message: String(e?.message ?? e), hint: 'Try WebFetch, or ask them to paste the text.' }));
+// Not reading a page is an answer, not a crash: report it and exit cleanly.
+main().catch((e) => out({ found: false, error: 'fetch_failed', message: String(e?.message ?? e), hint: 'Read the page with WebFetch (or a web-fetch helper agent if WebFetch is not available), or ask them to paste the text.' }));

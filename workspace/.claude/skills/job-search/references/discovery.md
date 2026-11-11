@@ -87,7 +87,7 @@ Searches, places and remote come from `search-profile.json` (`targetTitles`, `se
 
 **When they name a company to add:**
 1. Check `references/company-boards.json` first. It holds over 100 checked boards grouped by industry.
-2. Otherwise find the careers page with a web search, then run `scripts/checkBoard.ts detect "<careers page url>"`. It works out which system the site runs on and returns the `entry` to save: a slug for Greenhouse, Lever and Ashby, and a URL for Workday, SuccessFactors, Phenom and iCIMS.
+2. Otherwise find the careers page with a web search, then run `scripts/checkBoard.ts detect "<careers page url>"`. It works out which system the site runs on and returns the `entry` to save: a slug for Greenhouse, Lever, Ashby and Workable, and a URL for Workday, SuccessFactors, Phenom and iCIMS.
    - If it says `unknown`, look at where the page's "search jobs" or job links point, and run `detect` on that page.
    - A `gh_jid=` in a link means the site runs on Greenhouse underneath.
 3. Confirm it answers before saving it: `scripts/checkBoard.ts <system> <slug or url>`, for example `checkBoard.ts phenom https://www.jobs-ups.com/us/en`.

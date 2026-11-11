@@ -51,6 +51,8 @@ If plain `node` isn't on the PATH yet, use the Node installed inside the folder:
 
 `addJob.ts`, `writeScore.ts` and `writeDraft.ts` all accept `--file`.
 
+**Reading web pages.** Use `WebFetch`. If it isn't available in this session, use the Agent tool with the `web-fetch` agent type instead, without trying WebFetch first. A script result with `found: false` is an answer, not a failure: read its `hint` and move on.
+
 **Never write your own code to run.** No `node -e`, no inline scripts, no `python`, `jq` or `sed`. Only the skill's scripts are pre-approved, so anything else stops them with a permission prompt. To change a file, such as fixing a field in `data/tmp/job.json`, use the Read and Edit tools. Edits inside this folder never prompt. If a job needs something no script does, do it with Read, Edit and Write, or tell them what's missing.
 
 ## At the start of every session
