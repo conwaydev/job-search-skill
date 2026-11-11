@@ -5,9 +5,8 @@
  *
  * Writes readouts/pipeline.html and prints its path. Everything comes from
  * jobs.db, so it opens offline in a browser and publishes as a private Claude
- * artifact. The only outside resource is a Google Fonts stylesheet; without a
- * connection the page falls back to Georgia and the system font. Run it after
- * every status change.
+ * artifact. It uses the same system font and colors as the prep pages, and
+ * loads nothing from outside. Run it after every status change.
  *
  * Sections:
  *   tiles: applied, reached a screen, reached interviews, in process, offers,
@@ -363,34 +362,31 @@ ${N ? `<section class="panel tbl"><h2>Every application, by date</h2>${weeks()}$
 </script>
 `;
 
-const head = `<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-`;
-
-const TOKENS_LIGHT = `--bg:#f6f7f9; --surface:#ffffff; --text:#14181f; --muted:#5a6270; --line:#d9dde4; --accent:#2f5d8a;
-  --applied:#2f5d8a; --wait:#9aa5b4; --ghost:#b8892f; --reject:#b2483f; --closed:#7d7f86; --screen:#3c8a78; --interview:#1f6f5b; --active:#2a9d6f;`;
-const TOKENS_DARK = `--bg:#12161c; --surface:#181d25; --text:#e8ebf0; --muted:#98a1ae; --line:#2b323d; --accent:#6b9bcc;
-  --applied:#6b9bcc; --wait:#5f6a79; --ghost:#d3a646; --reject:#d4766d; --closed:#8b8d94; --screen:#5db3a0; --interview:#47b89b; --active:#4fcf97;`;
+// Page colors, font and dark mode come from html.ts, shared with the prep
+// pages. These are only the status colors, tuned to sit on that palette.
+const TOKENS_LIGHT = `--applied:var(--accent); --wait:#a8a49d; --ghost:var(--warn); --reject:var(--bad); --closed:#8a8780;
+  --screen:#3d7f8f; --interview:#2f6f62; --active:var(--good);`;
+const TOKENS_DARK = `--applied:var(--accent); --wait:#6c6a66; --ghost:var(--warn); --reject:var(--bad); --closed:#8d8a85;
+  --screen:#7fb8c4; --interview:#6fbfa8; --active:var(--good);`;
 
 const css = `
-:root { ${TOKENS_LIGHT} --display:'Fraunces', Georgia, serif; --body:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+:root { ${TOKENS_LIGHT} }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { ${TOKENS_DARK} } }
 :root[data-theme="dark"] { ${TOKENS_DARK} }
-body { font-family: var(--body); font-size: 15px; }
 main { max-width: 1000px; display: grid; gap: 24px; }
-h1 { font-family: var(--display); font-weight: 600; font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0; }
-h2 { font-family: var(--display); font-weight: 600; font-size: 22px; margin: 0; }
+h1 { margin: 0; }
+h2 { margin: 0; }
 .sub { color: var(--muted); margin: 8px 0 0; max-width: 62ch; }
 .panel p { margin: 0; }
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 24px 20px; display: grid; gap: 14px; min-width: 0; }
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 10px; }
 .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; min-width: 0; }
 .tile i { display: block; height: 3px; width: 28px; margin-bottom: 10px; }
-.tile b { display: block; font-family: var(--display); font-weight: 600; font-size: 32px; line-height: 1; font-variant-numeric: tabular-nums; }
+.tile b { display: block; font-weight: 600; font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
 .tile span { display: block; color: var(--muted); font-size: 13px; margin-top: 6px; }
 .chart { overflow-x: auto; display: block; }
 .chart svg { display: block; min-width: 720px; width: 100%; height: auto; }
-.chart text { fill: var(--text); font-family: var(--body); font-size: 13px; }
+.chart text { fill: var(--text); font-family: inherit; font-size: 13px; }
 .chart .n { font-weight: 600; font-variant-numeric: tabular-nums; }
 .chart .h { fill: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 .rb { opacity: .34; transition: opacity .12s; cursor: pointer; }
@@ -415,7 +411,7 @@ h2 { font-family: var(--display); font-weight: 600; font-size: 22px; margin: 0; 
 .quiet li, .top li { display: flex; gap: 12px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line); }
 .quiet li .rt, .top li .rt { flex: 1; }
 .top li .rt .small { display: block; }
-.score { font-family: var(--display); font-weight: 600; font-size: 20px; min-width: 2ch; font-variant-numeric: tabular-nums; }
+.score { font-weight: 600; font-size: 18px; min-width: 2ch; font-variant-numeric: tabular-nums; }
 .pill { display: inline-block; padding: 1px 9px; border-radius: 99px; font-size: 12px; font-weight: 500; border: 1px solid currentColor; white-space: nowrap; }
 .wleg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); align-items: center; }
 .wleg i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; }
@@ -439,7 +435,7 @@ td a { color: inherit; }
 
 ensureDir(readoutsDir);
 const file = path.join(readoutsDir, 'pipeline.html');
-writeFileSync(file, page('Application Tracker', body, css, head));
+writeFileSync(file, page('Application Tracker', body, css));
 if (process.argv.includes('--open')) {
   const cmd = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'explorer' : 'xdg-open';
   execFile(cmd, [file], () => {});
