@@ -19,6 +19,10 @@
       "WebFetch"
     ],
     "deny": [
+      "Bash(node -e *)",
+      "Bash(node --no-warnings -e *)",
+      "Bash(node -p *)",
+      "Bash(node --eval *)",
       "Read(./data/sessions/**)",
       "Read(./data/browser-profile/**)",
       "Edit(./data/sessions/**)",
