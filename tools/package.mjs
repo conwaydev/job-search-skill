@@ -28,9 +28,10 @@ if (git('status', '--porcelain', '--', 'workspace').trim()) {
 const version = JSON.parse(readFileSync(path.join(root, 'workspace/.claude/skills/job-search/package.json'), 'utf8')).version;
 const files = git('ls-files', 'workspace').split('\n').filter(Boolean);
 
-// Words that must never ship. Built In's city site names are allowed.
+// Words that must never ship. Built In's city site names are allowed, and so
+// is the repo's own GitHub path, which the updater downloads from.
 const SCRUB = /\b(justin|conway|conwaydev|sprout)\b/i;
-const leaks = files.filter((f) => !/\.(png|jpg|ico)$/.test(f) && SCRUB.test(readFileSync(path.join(root, f), 'utf8')));
+const leaks = files.filter((f) => !/\.(png|jpg|ico)$/.test(f) && SCRUB.test(readFileSync(path.join(root, f), 'utf8').replaceAll('conwaydev/job-search-skill', '')));
 if (leaks.length) {
   console.error('Scrub words found in:\n  ' + leaks.join('\n  '));
   process.exit(1);
