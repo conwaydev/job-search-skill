@@ -132,6 +132,7 @@ Each rule exists because breaking it produced a wrong answer. Do not soften them
 | "what's still open", "pipeline", "who ghosted me" | Snapshot, liveness check, readout | [tracking.md](references/tracking.md) |
 | "that's wrong", "don't do that", "I hate this line" | Fix it, then record the rule | [learning.md](references/learning.md) |
 | "add Acme to my companies" | Find their careers board and add it to `sources.json` | [discovery.md](references/discovery.md) |
+| "update", "update the job search skill", "is there a new version" | Download and swap in the newest version, data untouched | [setup.md](references/setup.md#updating-the-skill) |
 | something broke | Diagnose and fix in plain words | [troubleshooting.md](references/troubleshooting.md) |
 
 Background research on how applicant systems and hiring managers actually read resumes and letters is in [research.md](references/research.md). Read it before changing how documents are structured.
@@ -140,6 +141,7 @@ Background research on how applicant systems and hiring managers actually read r
 
 ```
 scripts/doctor.ts                         # is this computer ready?
+scripts/update.ts check | install         # newer version? download and swap it in
 scripts/onboardingState.ts [set <step> <status>]  # setup progress
 scripts/importResume.ts "<path>"          # copy their resume into profile/ (prints Word text)
 scripts/extractDocx.ts <file.docx>        # text of a Word resume

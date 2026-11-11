@@ -61,17 +61,22 @@ Run `doctor.ts` once more and tell them it's ready in one line, with no checklis
 
 ## Updating the skill
 
-When they have a newer `JobSearch` zip:
-1. Ask them to double-click the zip so it unzips, usually into Downloads. **Don't** unzip it over their current folder.
-2. Find the new folder yourself before asking. It's usually `Downloads/JobSearch` (or `Downloads/JobSearch 2`, or `Downloads/JobSearch/JobSearch`, which is how Windows unzips it) in their home folder. List the Downloads folder to find it. Ask only if it isn't there. Then run its update script from their current JobSearch folder:
+When they say "update" or ask about a new version:
+1. Say in one line that you'll download the newest version and that their jobs, profile and applications aren't touched. Then run:
+   ```
+   scripts/update.ts install
+   ```
+   - It downloads the latest release from GitHub and runs that version's own update script.
+   - It replaces the skill, `CLAUDE.md` and `.claude/settings.json`, and reinstalls the skill's dependencies.
+   - It never touches `profile/`, `data/`, `applications/`, `readouts/` or their Node.
+   - The old version is kept in `.runtime/job-search.previous`.
+2. Tell them it's done, which version it is now, and to start a new session so the new version loads. If it says they're already on the newest version, say so in one line.
+3. **If the download fails** (no internet, GitHub down), say so and suggest trying later. If it keeps failing, they can download `JobSearch.zip` themselves, double-click it so it unzips into Downloads, and say "update". Then find the new folder in Downloads (`JobSearch`, `JobSearch 2`, or `JobSearch/JobSearch` on Windows) and run its script from this folder:
    ```
    node "<path to the new JobSearch folder>/.claude/skills/job-search/setup/update.mjs"
    ```
-   - It replaces the skill, `CLAUDE.md` and `.claude/settings.json`.
-   - It never touches `profile/`, `data/`, `applications/`, `readouts/` or their Node.
-   - The old version is kept in `.runtime/job-search.previous`.
-3. Tell them it's done and what version it is now. Suggest starting a new session so the new version loads.
-4. They can delete the downloaded zip and folder afterwards.
+
+To undo a bad update, move `.runtime/job-search.previous` back to `.claude/skills/job-search`.
 
 ## Moving to a new computer
 
