@@ -130,10 +130,36 @@ async function ashby(): Promise<Posting | null> {
 }
 
 async function workable(): Promise<Posting | null> {
-  // apply.workable.com/<company>/j/<code>/  or  /<company>/jobs/view/<code>
-  if (host !== 'apply.workable.com' || parts.length < 3) return null;
-  const slug = parts[0];
-  const code = parts[parts.length - 1].replace(/\.md$/, '');
+  // Workable's job search site (jobs.workable.com/jobs/<id>) serves the
+  // posting as markdown with the company named, but no link to the board.
+  if (host === 'jobs.workable.com') {
+    const md = String(await get(url!.href));
+    if (!md.startsWith('# ')) return null;
+    const field = (k: string) => md.match(new RegExp(`\\*\\*${k}:\\*\\* *(.+)`))?.[1]?.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').trim();
+    const body = md.slice(md.indexOf('\n## ') + 1 || 0);
+    return {
+      found: true,
+      via: 'workable',
+      title: md.match(/^# +(.+)/)?.[1]?.trim(),
+      company: field('Company'),
+      location: [field('Location'), field('Workplace')].filter(Boolean).join(', '),
+      descriptionText: body.replace(/[#*]+ ?/g, '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').trim(),
+      employmentType: field('Employment type'),
+      canonicalUrl: url!.href,
+    };
+  }
+  if (host !== 'apply.workable.com') return null;
+  let p = parts;
+  // apply.workable.com/j/<code> redirects to /<company>/j/<code>.
+  if (p[0] === 'j') {
+    const res = await fetch(url!.href, { redirect: 'follow', signal: AbortSignal.timeout(20000) });
+    p = new URL(res.url).pathname.split('/').filter(Boolean);
+  }
+  // apply.workable.com/api/v2/accounts/<company>/jobs/<code>
+  if (p[0] === 'api') p = [p[3], 'j', p[5]];
+  if (p.length < 3 || p[0] === 'j') return null;
+  const slug = p[0];
+  const code = p[p.length - 1].replace(/\.md$/, '');
   const res = await fetch(`https://apply.workable.com/api/v2/accounts/${slug}/jobs/${code}`, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(20000) });
   if (res.status === 404) {
     return { found: false, via: 'workable', hint: `Not on the live board: it has probably closed, or the link is old. Run checkBoard.ts workable ${slug} to see what's open now.` };
