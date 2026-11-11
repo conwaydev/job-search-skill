@@ -8,7 +8,7 @@ This is that skill, cleaned up so anyone can use it. It finds jobs that are actu
 
 ## What it does
 
-- **Finds jobs and checks they're real.** It searches LinkedIn, Built In and the careers pages of the companies you pick, from startups on Greenhouse and Ashby to big companies on Workday, SuccessFactors and iCIMS. It checks each posting is still open before showing it to you.
+- **Finds jobs and checks they're real.** It searches LinkedIn, Built In and the careers pages of the companies you pick, from startups on Greenhouse and Ashby to big companies on Workday, SuccessFactors and iCIMS. It checks each posting is still open before showing it to you. When a recruiter posts a job without naming the company, it works out who the employer is and checks you haven't already applied there.
 - **Scores every role against your background.** You get a score and a plain reason. When it can't tell whether you have something a job asks for, it asks you.
 - **Writes a cover letter and resume for each one.** Written from scratch for that job, in your voice, using only numbers you've confirmed. You get PDFs to send, plus Word copies if you want to change the font or fix a line yourself.
 - **Keeps track of everything.** Say "I applied to Acme" or "I heard back" and it updates your Application Tracker, a private page that shows where everything stands and what's gone quiet.
