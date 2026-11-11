@@ -319,6 +319,8 @@ export async function detectBoard(url: string): Promise<Detected> {
   if (lv) return { ats: 'lever', entry: lv[1], finalUrl };
   const ab = page.match(/jobs\.ashbyhq\.com\/([a-z0-9_.-]+)/i);
   if (ab) return { ats: 'ashby', entry: ab[1], finalUrl };
+  const wk = page.match(/apply\.workable\.com\/([a-z0-9_-]+)/i);
+  if (wk && wk[1] !== 'api') return { ats: 'workable', entry: wk[1], finalUrl };
   const wd = page.match(/https:\/\/[a-z0-9-]+\.wd\d+\.myworkdayjobs\.com\/(?:[a-z]{2}-[A-Z]{2}\/)?[A-Za-z0-9_-]+/);
   if (wd) return { ats: 'workday', entry: wd[0], finalUrl };
   if (/phApp\.ddo|cdn\.phenompeople\.com/.test(html)) {
